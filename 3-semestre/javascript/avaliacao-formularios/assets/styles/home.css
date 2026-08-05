@@ -1,0 +1,108 @@
+#hero-section {
+  position: relative;
+
+  .hero-text {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    z-index: 3;
+    text-align: center;
+    flex-direction: column;
+    gap: 48px;
+    color: var(--white);
+
+    h1 {
+      font-size: 80px;
+      color: var(--white);
+    }
+
+    span {
+      color: var(--primary-color);
+    }
+
+    a {
+      padding: 16px 48px;
+    }
+  }
+
+  .hero-img {
+    width: 99vw;
+    height: 100vh;
+    background: url("../images/hero-banner-img.jpg") center center no-repeat;
+    background-size: cover;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(circle, #000000 30%, #000000dd 100%);
+      opacity: 0.9;
+    }
+  }
+}
+
+#formularios {
+  padding: 96px 0;
+  background-color: var(--medium-grey);
+
+  .card-formulario-items {
+    align-items: stretch;
+    justify-content: center;
+    gap: 24px;
+
+    .card-formulario {
+      width: 300px;
+      background-color: var(--dark-grey);
+      border: solid 1px var(--light-grey);
+      border-radius: 13px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;        
+
+      h3 {
+        font-weight: bolder;
+        font-size: 20px;
+        color: var(--primary-color);
+      }
+
+      p {
+        color: var(--white);
+      }
+
+      .card-highlights {
+        display: flex;
+        justify-content: space-between;
+
+        & p {
+          font-weight: 400;
+          font-size: 14px;
+          color: var(--secondary-color);
+          background-color: var(--white);
+          padding: 4px 8px;
+          border-radius: 8px;
+        }
+      }
+
+      .card-link {
+        display: block;
+        text-align: center;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        transition: all .2s;
+        color: var(--white);
+        background-color: var(--primary-color);
+
+        &:hover {
+          color: var(--primary-color);
+          background-color: var(--white);
+        }
+      }
+    }
+  }
+}

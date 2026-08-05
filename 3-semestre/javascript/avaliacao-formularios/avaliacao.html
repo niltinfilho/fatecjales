@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Avaliação</title>
+    <link rel="stylesheet" href="assets/styles/style.css" />
+    <link rel="stylesheet" href="assets/styles/avaliacao.css" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/id/favicon-bar-baridade-96x96.png"
+      type="image/x-icon"
+    />
+  </head>
+
+  <body>
+    <div id="header-root"></div>
+    <div id="hero-subpage-root"></div>
+
+    <section id="reserva-section">
+      <div class="container-960 flex form-wrapper">
+        <div class="form-content">
+          <h2>Faça sua avaliação</h2>
+          <p>
+            Teste seu conhecimento em desenvolvimento de software e veja o
+            resultado no final
+          </p>
+
+          <div id="erros" class="error-message">
+            <span>❗</span>
+          </div>
+
+          <form class="flex" id="form">
+            <div class="question-block" id="block-q1">
+              <p>
+                1. Qual palavra-chave no JavaScript moderno é usada para
+                declarar uma variável que não pode ser reatribuída?
+              </p>
+              <div class="options">
+                <label><input type="radio" name="q1" value="a" /> var</label>
+                <label><input type="radio" name="q1" value="b" /> const</label>
+                <label><input type="radio" name="q1" value="c" /> let</label>
+                <label><input type="radio" name="q1" value="d" /> define</label>
+              </div>
+              <div class="feedback" id="feedback-q1"></div>
+            </div>
+
+            <div class="question-block" id="block-q2">
+              <p>
+                2. No ecossistema Linux, qual comando é comumente utilizado para
+                gerenciar e visualizar containers Docker em execução?
+              </p>
+              <div class="options">
+                <label>
+                  <input type="radio" name="q2" value="a" /> docker run
+                </label>
+                <label>
+                  <input type="radio" name="q2" value="b" /> docker images
+                </label>
+                <label>
+                  <input type="radio" name="q2" value="c" /> docker ps
+                </label>
+                <label>
+                  <input type="radio" name="q2" value="d" /> docker system
+                </label>
+              </div>
+              <div class="feedback" id="feedback-q2"></div>
+            </div>
+
+            <div class="question-block" id="block-q3">
+              <p>
+                3. Quais das alternativas abaixo representam frameworks ou
+                bibliotecas do ecossistema Front-end? (Selecione todas as
+                corretas)
+              </p>
+              <div class="options">
+                <label>
+                  <input type="checkbox" name="q3" value="a" /> Astro
+                </label>
+                <label>
+                  <input type="checkbox" name="q3" value="b" /> Spring Boot
+                </label>
+                <label>
+                  <input type="checkbox" name="q3" value="c" /> React
+                </label>
+                <label>
+                  <input type="checkbox" name="q3" value="d" />
+                  PostgreSQL
+                </label>
+              </div>
+              <div class="feedback" id="feedback-q3"></div>
+            </div>
+
+            <div class="question-block" id="block-q4">
+              <p>
+                4. Quais dos seguintes itens são métodos HTTP nativos utilizados
+                em APIs REST? (Selecione todas as corretas)
+              </p>
+              <div class="options">
+                <label>
+                  <input type="checkbox" name="q4" value="a" /> FETCH
+                </label>
+                <label>
+                  <input type="checkbox" name="q4" value="b" /> GET
+                </label>
+                <label>
+                  <input type="checkbox" name="q4" value="c" /> SEND
+                </label>
+                <label>
+                  <input type="checkbox" name="q4" value="d" /> POST
+                </label>
+              </div>
+              <div class="feedback" id="feedback-q4"></div>
+            </div>
+
+            <div class="question-block" id="block-q5">
+              <p>
+                5. Explique resumidamente com suas palavras: qual é a principal
+                diferença entre o desenvolvimento Front-end e o Back-end?
+              </p>
+              <textarea
+                id="q5"
+                name="q5"
+                placeholder="Digite sua resposta aqui (mínimo de 3 palavras)..."
+              ></textarea>
+              <div class="feedback" id="feedback-q5"></div>
+            </div>
+
+            <button id="btn-form" type="button">Confirmar respostas</button>
+          </form>
+
+          <div id="resultadoContainer" class="result-container">
+            <h2>Resultado da Avaliação</h2>
+            <p id="pontuacao" style="font-size: 18px; font-weight: bold"></p>
+
+            <h3>JSON de Entrega:</h3>
+            <pre><code id="saida"></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="footer-root"></div>
+
+    <script src="components/header/header.js"></script>
+    <script src="components/hero-subpages/hero-subpages.js"></script>
+    <script src="components/footer/footer.js"></script>
+    <script src="assets/scripts/avaliacao.js"></script>
+    <script>
+      CreateHeroSubpages(
+        "Formulário de <span>avaliação</span> com <span>gabarito</span>",
+        "Crie uma página HTML que funcione como um mini-quiz. O usuário responde 5 questões e, ao enviar, recebe o resultado corrigido automaticamente pelo JavaScript.",
+      );
+    </script>
+  </body>
+</html>

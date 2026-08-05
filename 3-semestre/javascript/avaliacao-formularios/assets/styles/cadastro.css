@@ -1,0 +1,95 @@
+#cadastro-section {
+  background-color: var(--primary-color);
+  padding: 96px 0;
+
+  .form-wrapper {
+    background-color: var(--light-grey);
+    border-radius: 12px;
+
+    .form-content {
+      padding: 32px;
+      width: 100%;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      form {
+        margin-top: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+
+        .form-two-columns {
+          gap: 40px;
+
+          div {
+            width: 50%;
+          }
+        }
+
+        div {
+          width: 100%;
+
+          label {
+            display: block;
+            margin-bottom: 8px;
+          }
+
+          input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--medium-grey);
+            border-radius: 12px;
+            background-color: var(--medium-grey);
+            font-size: 16px;
+            font-family: Roboto;
+          }
+
+          input:focus {
+            outline: none;
+          }
+
+          span {
+            display: none;
+            margin: 6px 0 0 3px;
+            color: red;
+            font-size: 12px;
+          }
+
+          button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 18px;
+            font-family: Roboto;
+            transition: all 0.2s;
+            cursor: pointer;
+          }
+
+          button:hover {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+          }
+
+          button.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+
+          button.disabled:hover {
+            background-color: var(--red);
+            color: var(--white);
+          }
+        }
+      }
+    }
+  }
+}

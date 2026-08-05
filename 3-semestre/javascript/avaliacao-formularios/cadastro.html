@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Cadastro</title>
+  <link rel="stylesheet" href="assets/styles/style.css" />
+  <link rel="stylesheet" href="assets/styles/cadastro.css" />
+  <link rel="shortcut icon" href="assets/images/id/favicon-bar-baridade-96x96.png" type="image/x-icon" />
+</head>
+
+<body>
+  <div id="header-root"></div>
+  <div id="hero-subpage-root"></div>
+
+  <section id="cadastro-section">
+    <div class="container-960 flex form-wrapper">
+      <div class="form-content">
+        <h2>Faça seu cadastro</h2>
+        <p>
+          E veja a magia das validações com JavaScript
+        </p>
+        <form class="flex" id="form">
+          <div>
+            <label for="name">Nome completo*</label>
+            <input type="text" name="name" id="name" placeholder="Fulano d'Tal da Silva" class="inputs required"
+              oninput="nameValidate()" />
+            <span class="span-required">
+              O nome deve ter no mínimo 3 caracteres
+            </span>
+          </div>
+          <div>
+            <label for="telefone">Telefone / WhatsApp* (Apenas números)</label>
+            <input type="tel" name="telefone" class="inputs required" id="telefone" placeholder="(11) 12345-6789"
+              onblur="mascaraDeTelefone(this)" oninput="telefoneValidate(this)" />
+            <span class="span-required">
+              O telefone deve ter no mínimo 8 caracteres
+            </span>
+          </div>
+          <div>
+            <label for="email">E-mail*</label>
+            <input type="email" name="email" id="email" placeholder="fulanodtal@email.com" class="inputs required"
+              oninput="emailValidate()" />
+            <span class="span-required">
+              O e-mail deve ser válido
+            </span>
+          </div>
+          <div class="form-two-columns flex">
+            <div>
+              <label for="senha">Senha*</label>
+              <input type="password" name="senha" id="senha" class="inputs required" oninput="senhaValidate()" onmouseover="showpw('senha')" onmouseleave="hidepw('senha')" />
+              <span class="span-required">
+                A senha deve ser válida
+              </span>
+            </div>
+            <div>
+              <label for="confirmarSenha">Confirme sua senha*</label>
+              <input type="password" name="confirmarSenha" id="confirmarSenha" class="inputs required"
+                oninput="issame()" onmouseover="showpw('confirmarSenha')" onmouseleave="hidepw('confirmarSenha')"/>
+              <span class="span-required">
+                As senhas devem ser iguais
+              </span>
+            </div>
+          </div>
+          <ul id="requisitosSenha">
+            <li id="req-length">❌ Entre 6 e 10 caracteres</li>
+            <li id="req-upper">❌ Pelo menos 1 letra maiúscula</li>
+            <li id="req-lower">❌ Pelo menos 1 letra minúscula</li>
+            <li id="req-number">❌ Pelo menos 1 número</li>
+            <li id="req-special">❌ Pelo menos 1 caractere especial</li>
+          </ul>
+          <div>
+            <button id="button" type="button" class="disabled" disabled onclick="cadastrar()">
+              Confirmar cadastro
+          </div>
+        </form>
+        <pre><code class="saida"></code></pre>
+      </div>
+    </div>
+  </section>
+  <div id="footer-root"></div>
+
+  <script src="components/header/header.js"></script>
+  <script src="components/hero-subpages/hero-subpages.js"></script>
+  <script src="components/footer/footer.js"></script>
+  <script src="assets/scripts/cadastro.js"></script>
+  <script>
+    CreateHeroSubpages(
+      "Formulário de <span>cadastro</span> com <span>validação em tempo real</span>",
+      "Crie um formulário de cadastro que valide cada campo em tempo real, conforme o usuário digita. O botão \"Enviar\" deve permanecer desabilitado até que todos os campos estejam válidos simultaneamente."
+    );
+  </script>
+</body>
+
+</html>

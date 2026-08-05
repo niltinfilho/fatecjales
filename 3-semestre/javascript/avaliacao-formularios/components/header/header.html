@@ -1,0 +1,63 @@
+<style>
+  header {
+    padding: 16px 0;
+    background-color: #000000df;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+
+    div {
+      justify-content: space-between;
+
+      .logo {
+        color: #fff;
+      }
+
+      ul {
+        a {
+          
+          font-weight: 600;
+          font-size: 16px;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: all 0.2s;
+          padding: 16px 24px;
+          color: var(--white);
+
+          &:hover {
+            color: var(--primary-color);
+          }
+        }
+
+        .nav-menu-button {
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+</style>
+
+<header>
+  <div class="container flex">
+    <a class="logo" href="index.html">
+      <h2>Avaliação Formulários</h2>
+      <hr>
+      <p>Niltin & Pirola</p>
+    </a>
+    <nav class="nav">
+      <ul class="flex">
+        <li>
+          <a href="avaliacao.html" class="btn-default nav-menu-button">
+            Avaliação
+          </a>
+        </li>
+        <li>
+          <a href="cadastro.html" class="btn-default nav-menu-button">
+            Cadastro
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
