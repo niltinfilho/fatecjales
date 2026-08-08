@@ -13,7 +13,6 @@ public class AppCalculadora {
         System.out.print("Digite o segundo valor: ");
         calculadora.number2 =  scan.nextInt();
 
-        System.out.print("O resultado foi: ");
-        System.out.print(calculadora.somar(calculadora.number1, calculadora.number2));
+        System.out.println("O resultado foi: " + calculadora.somar());
     }
 }
