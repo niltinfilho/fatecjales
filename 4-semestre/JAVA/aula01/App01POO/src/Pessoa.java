@@ -4,7 +4,7 @@ public class Pessoa {
     float altura;
 
     void correr() {
-        System.out.println("Correndo...");
+        System.out.println("Correndo... mesmo com " + this.idade + " anos de idade!");
     }
 
     void dormir() {
