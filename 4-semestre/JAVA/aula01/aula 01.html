@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 01 — Introdução à Programação Orientada a Objetos com Java</title>
+<style>
+    :root{
+        --bg:#07111f;
+        --panel:#0d1b2d;
+        --panel2:#10243d;
+        --text:#eef6ff;
+        --muted:#b8c7d9;
+        --primary:#55c2ff;
+        --accent:#7cf0c5;
+        --warning:#ffd166;
+        --danger:#ff7b7b;
+        --border:rgba(255,255,255,.12);
+        --shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+        margin:0;
+        font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+        background:
+            radial-gradient(circle at top right, rgba(85,194,255,.12), transparent 28%),
+            linear-gradient(135deg,#050b14,#07111f 45%,#091525);
+        color:var(--text);
+        overflow:hidden;
+    }
+
+    button{font:inherit}
+
+    .app{
+        height:100vh;
+        display:grid;
+        grid-template-rows:auto 1fr auto;
+    }
+
+    header{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+        padding:12px 20px;
+        border-bottom:1px solid var(--border);
+        background:rgba(5,11,20,.92);
+        backdrop-filter:blur(10px);
+        z-index:20;
+    }
+
+    .brand{
+        min-width:0;
+    }
+
+    .brand strong{
+        display:block;
+        font-size:1rem;
+        color:var(--accent);
+        letter-spacing:.04em;
+    }
+
+    .brand span{
+        display:block;
+        color:var(--muted);
+        font-size:.84rem;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        max-width:58vw;
+    }
+
+    .header-actions{
+        display:flex;
+        gap:8px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+    }
+
+    .btn{
+        border:1px solid var(--border);
+        background:var(--panel);
+        color:var(--text);
+        padding:9px 13px;
+        border-radius:10px;
+        cursor:pointer;
+        transition:.2s;
+    }
+
+    .btn:hover{transform:translateY(-1px);border-color:var(--primary)}
+    .btn.primary{background:var(--primary);color:#03101b;border-color:transparent;font-weight:700}
+
+    main{
+        position:relative;
+        overflow:hidden;
+    }
+
+    .slide{
+        position:absolute;
+        inset:0;
+        display:none;
+        overflow:auto;
+        padding:clamp(24px,4vw,56px);
+    }
+
+    .slide.active{
+        display:block;
+        animation:fade .28s ease;
+    }
+
+    @keyframes fade{
+        from{opacity:.25;transform:translateY(8px)}
+        to{opacity:1;transform:none}
+    }
+
+    .content{
+        width:min(1160px,100%);
+        margin:0 auto;
+        min-height:100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+    }
+
+    .eyebrow{
+        color:var(--accent);
+        text-transform:uppercase;
+        letter-spacing:.13em;
+        font-weight:800;
+        font-size:.78rem;
+        margin-bottom:12px;
+    }
+
+    h1,h2,h3{
+        margin-top:0;
+        line-height:1.08;
+    }
+
+    h1{
+        font-size:clamp(2.3rem,6vw,5.4rem);
+        max-width:980px;
+        margin-bottom:20px;
+    }
+
+    h2{
+        font-size:clamp(2rem,4vw,3.7rem);
+        margin-bottom:24px;
+    }
+
+    h3{
+        font-size:1.25rem;
+        color:var(--primary);
+        margin-bottom:10px;
+    }
+
+    p,li{
+        font-size:clamp(1rem,1.45vw,1.2rem);
+        line-height:1.65;
+        color:var(--muted);
+    }
+
+    strong{color:var(--text)}
+
+    .lead{
+        font-size:clamp(1.15rem,2vw,1.45rem);
+        max-width:900px;
+    }
+
+    .grid{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:18px;
+        margin-top:18px;
+    }
+
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+    .card{
+        background:linear-gradient(180deg,rgba(16,36,61,.94),rgba(11,27,47,.94));
+        border:1px solid var(--border);
+        border-radius:18px;
+        padding:22px;
+        box-shadow:var(--shadow);
+    }
+
+    .card p:last-child{margin-bottom:0}
+
+    .badge{
+        display:inline-block;
+        padding:5px 9px;
+        border-radius:999px;
+        background:rgba(85,194,255,.13);
+        color:var(--primary);
+        border:1px solid rgba(85,194,255,.25);
+        font-weight:700;
+        font-size:.78rem;
+        margin-bottom:10px;
+    }
+
+    .concept{
+        border-left:4px solid var(--accent);
+        padding:14px 18px;
+        background:rgba(124,240,197,.07);
+        border-radius:0 12px 12px 0;
+        margin:18px 0;
+    }
+
+    .warning{
+        border-left-color:var(--warning);
+        background:rgba(255,209,102,.08);
+    }
+
+    pre{
+        margin:16px 0 0;
+        background:#02070d;
+        border:1px solid #17314e;
+        border-radius:14px;
+        padding:18px;
+        overflow:auto;
+        color:#d9efff;
+        font:500 .94rem/1.55 "JetBrains Mono","Fira Code",Consolas,monospace;
+        box-shadow:inset 0 0 30px rgba(0,0,0,.25);
+        white-space:pre;
+    }
+
+    code{font-family:"JetBrains Mono","Fira Code",Consolas,monospace}
+
+    .kw{color:#ff91d0}
+    .type{color:#66d9ff}
+    .str{color:#b7f38b}
+    .num{color:#ffd166}
+    .comment{color:#7f93aa;font-style:italic}
+    .fn{color:#7cf0c5}
+
+    .flow{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:12px;
+        margin:30px 0;
+    }
+
+    .flow .node{
+        padding:16px 22px;
+        background:var(--panel2);
+        border:1px solid var(--border);
+        border-radius:14px;
+        font-weight:800;
+        font-size:1.05rem;
+    }
+
+    .arrow{color:var(--accent);font-size:1.7rem;font-weight:bold}
+
+    .compare{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:18px;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:16px;
+        overflow:hidden;
+        border-radius:14px;
+    }
+
+    th,td{
+        border:1px solid var(--border);
+        padding:14px;
+        text-align:left;
+        font-size:1rem;
+    }
+
+    th{background:#122d4a;color:var(--primary)}
+    td{background:rgba(13,27,45,.86);color:var(--muted)}
+
+    .uml{
+        width:min(520px,100%);
+        margin:20px auto;
+        border:2px solid var(--primary);
+        border-radius:12px;
+        overflow:hidden;
+        box-shadow:var(--shadow);
+    }
+
+    .uml > div{
+        padding:14px 18px;
+        border-bottom:1px solid rgba(85,194,255,.55);
+        background:#0b1b2f;
+    }
+    .uml > div:last-child{border-bottom:0}
+    .uml .title{text-align:center;font-weight:900;color:var(--primary);font-size:1.2rem}
+
+    .exercise{
+        background:linear-gradient(135deg,rgba(85,194,255,.12),rgba(124,240,197,.08));
+        border:1px solid rgba(124,240,197,.28);
+    }
+
+    footer{
+        display:grid;
+        grid-template-columns:auto 1fr auto;
+        align-items:center;
+        gap:16px;
+        padding:10px 18px;
+        background:rgba(5,11,20,.96);
+        border-top:1px solid var(--border);
+    }
+
+    .nav{
+        display:flex;
+        gap:8px;
+    }
+
+    .progress{
+        height:7px;
+        background:#122033;
+        border-radius:999px;
+        overflow:hidden;
+    }
+
+    .progress > div{
+        height:100%;
+        background:linear-gradient(90deg,var(--primary),var(--accent));
+        width:0;
+        transition:width .25s ease;
+    }
+
+    .counter{
+        color:var(--muted);
+        font-size:.88rem;
+        min-width:70px;
+        text-align:right;
+    }
+
+    .toc{
+        position:fixed;
+        top:0;
+        left:0;
+        bottom:0;
+        width:min(360px,88vw);
+        background:#07111f;
+        border-right:1px solid var(--border);
+        box-shadow:20px 0 70px rgba(0,0,0,.45);
+        z-index:100;
+        transform:translateX(-105%);
+        transition:.25s ease;
+        padding:20px;
+        overflow:auto;
+    }
+
+    .toc.open{transform:translateX(0)}
+
+    .toc h3{margin-top:8px}
+
+    .toc button{
+        width:100%;
+        text-align:left;
+        margin:4px 0;
+        padding:10px 12px;
+        color:var(--muted);
+        background:transparent;
+        border:1px solid transparent;
+        border-radius:9px;
+        cursor:pointer;
+    }
+
+    .toc button:hover,.toc button.current{
+        color:var(--text);
+        background:var(--panel);
+        border-color:var(--border);
+    }
+
+    .overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.5);
+        z-index:90;
+        display:none;
+    }
+
+    .overlay.show{display:block}
+
+    .kbd{
+        border:1px solid var(--border);
+        padding:2px 7px;
+        border-radius:6px;
+        background:#0d1b2d;
+        color:var(--text);
+        font-size:.78em;
+    }
+
+    @media (max-width:800px){
+        body{overflow:auto}
+        .app{min-height:100vh;height:auto}
+        main{min-height:calc(100vh - 128px)}
+        .slide{padding:24px 18px}
+        .grid,.grid.three,.compare{grid-template-columns:1fr}
+        header{align-items:flex-start}
+        .brand span{max-width:46vw}
+        footer{position:sticky;bottom:0}
+    }
+
+    @media print{
+        body{
+            overflow:visible;
+            background:#fff;
+            color:#111;
+        }
+        header,footer,.toc,.overlay{display:none!important}
+        main{overflow:visible}
+        .slide{
+            display:block!important;
+            position:relative;
+            inset:auto;
+            page-break-after:always;
+            min-height:100vh;
+            padding:18mm 15mm;
+            color:#111;
+            background:#fff;
+        }
+        .content{justify-content:flex-start;min-height:auto}
+        h1,h2,h3,strong{color:#111!important}
+        p,li,td{color:#222!important}
+        .eyebrow{color:#075a80!important}
+        .card,.concept,.exercise{
+            background:#fff!important;
+            color:#111!important;
+            box-shadow:none!important;
+            border-color:#bbb!important;
+        }
+        pre{
+            background:#f6f8fa!important;
+            color:#111!important;
+            border-color:#bbb!important;
+            white-space:pre-wrap;
+        }
+        .kw,.type,.str,.num,.comment,.fn{color:#111!important}
+        th{background:#eee!important;color:#111!important}
+        td{background:#fff!important}
+        .uml > div{background:#fff!important;color:#111!important}
+    }
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+    <div class="brand">
+        <strong>TÓPICOS ESPECIAIS EM SISTEMAS PARA INTERNET — JAVA</strong>
+        <span>Aula 01 — Conceitos iniciais de Programação Orientada a Objetos</span>
+    </div>
+    <div class="header-actions">
+        <button class="btn" onclick="toggleToc()">☰ Índice</button>
+        <button class="btn primary" onclick="window.print()">Gerar PDF</button>
+    </div>
+</header>
+
+<main id="slides">
+
+<section class="slide active" data-title="Abertura">
+<div class="content">
+    <div class="eyebrow">Programação Orientada a Objetos com Java</div>
+    <h1>Conceitos iniciais de POO</h1>
+    <p class="lead">Nesta aula serão apresentados os fundamentos necessários para compreender a organização de programas Java por meio de classes e objetos, estabelecendo a base para conteúdos posteriores como encapsulamento, herança, polimorfismo, MVC e DAO.</p>
+    <div class="grid three">
+        <div class="card"><span class="badge">Fundamento</span><h3>Classe</h3><p>Modelo utilizado para definir dados e comportamentos de uma entidade.</p></div>
+        <div class="card"><span class="badge">Execução</span><h3>Objeto</h3><p>Instância concreta criada a partir da estrutura definida por uma classe.</p></div>
+        <div class="card"><span class="badge">Comportamento</span><h3>Método</h3><p>Ação que um objeto pode executar dentro do sistema.</p></div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="O que é POO?">
+<div class="content">
+    <div class="eyebrow">1. Introdução</div>
+    <h2>O que é Programação Orientada a Objetos?</h2>
+    <p>A Programação Orientada a Objetos, ou <strong>POO</strong>, é um paradigma de desenvolvimento no qual o sistema é organizado a partir de estruturas que representam entidades, conceitos e responsabilidades.</p>
+    <div class="concept">
+        <strong>Ideia central:</strong>
+        <p>Em vez de concentrar todo o código em uma sequência extensa de comandos, os dados e comportamentos relacionados são agrupados em objetos.</p>
+    </div>
+    <div class="grid">
+        <div class="card">
+            <h3>Sistema acadêmico</h3>
+            <p>Aluno, Professor, Disciplina, Turma, Matrícula e Nota podem ser representados por classes diferentes.</p>
+        </div>
+        <div class="card">
+            <h3>Sistema comercial</h3>
+            <p>Cliente, Produto, Pedido, Pagamento e Estoque também podem ser representados por objetos.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Por que utilizar POO?">
+<div class="content">
+    <div class="eyebrow">2. Organização do software</div>
+    <h2>Por que utilizar POO?</h2>
+    <div class="grid">
+        <div class="card"><h3>Organização</h3><p>As responsabilidades do sistema podem ser separadas em classes, reduzindo a concentração de código em um único ponto.</p></div>
+        <div class="card"><h3>Manutenção</h3><p>Alterações tendem a ficar restritas às classes responsáveis pelo comportamento modificado.</p></div>
+        <div class="card"><h3>Reutilização</h3><p>Uma classe bem projetada pode ser utilizada diversas vezes e em diferentes partes da aplicação.</p></div>
+        <div class="card"><h3>Modelagem</h3><p>Conceitos do problema podem ser traduzidos para estruturas de software mais fáceis de compreender.</p></div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Procedural x POO">
+<div class="content">
+    <div class="eyebrow">3. Mudança de abordagem</div>
+    <h2>Programação procedural × POO</h2>
+    <div class="compare">
+        <div class="card">
+            <h3>Abordagem procedural</h3>
+            <p>O foco principal está na sequência de operações e em funções que manipulam dados.</p>
+<pre><code><span class="fn">cadastrarAluno</span>();
+<span class="fn">calcularMedia</span>();
+<span class="fn">mostrarAluno</span>();</code></pre>
+        </div>
+        <div class="card">
+            <h3>Orientação a objetos</h3>
+            <p>Os comportamentos são associados ao objeto responsável por eles.</p>
+<pre><code><span class="type">Aluno</span> aluno = <span class="kw">new</span> <span class="type">Aluno</span>();
+
+aluno.<span class="fn">calcularMedia</span>();
+aluno.<span class="fn">mostrarDados</span>();</code></pre>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Conceitos fundamentais">
+<div class="content">
+    <div class="eyebrow">4. Vocabulário essencial</div>
+    <h2>Conceitos fundamentais</h2>
+    <div class="flow">
+        <div class="node">Classe</div><div class="arrow">→</div>
+        <div class="node">Objeto</div><div class="arrow">→</div>
+        <div class="node">Atributos</div><div class="arrow">+</div>
+        <div class="node">Métodos</div>
+    </div>
+    <div class="grid">
+        <div class="card"><h3>Classe</h3><p>Define a estrutura comum de um determinado tipo de objeto.</p></div>
+        <div class="card"><h3>Objeto</h3><p>É uma instância criada a partir de uma classe.</p></div>
+        <div class="card"><h3>Atributo</h3><p>Representa os dados ou características do objeto.</p></div>
+        <div class="card"><h3>Método</h3><p>Representa ações ou comportamentos executados pelo objeto.</p></div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Classes">
+<div class="content">
+    <div class="eyebrow">5. Classes</div>
+    <h2>Classe: o modelo do objeto</h2>
+    <p>Uma classe descreve quais informações e comportamentos estarão disponíveis para os objetos criados a partir dela.</p>
+<pre><code><span class="kw">public class</span> <span class="type">Pessoa</span> {
+
+    <span class="type">String</span> nome;
+    <span class="type">int</span> idade;
+
+}</code></pre>
+    <div class="concept">
+        <p>Neste momento existe apenas a definição de como uma <strong>Pessoa</strong> será representada. Ainda não foi criada uma pessoa específica.</p>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Objetos">
+<div class="content">
+    <div class="eyebrow">6. Objetos e instâncias</div>
+    <h2>Objeto: uma ocorrência concreta</h2>
+    <p>Um objeto é criado a partir de uma classe. Diversos objetos podem ser gerados utilizando o mesmo modelo.</p>
+<pre><code><span class="type">Pessoa</span> pessoa1 = <span class="kw">new</span> <span class="type">Pessoa</span>();
+<span class="type">Pessoa</span> pessoa2 = <span class="kw">new</span> <span class="type">Pessoa</span>();
+
+pessoa1.nome = <span class="str">"Ana"</span>;
+pessoa1.idade = <span class="num">20</span>;
+
+pessoa2.nome = <span class="str">"Carlos"</span>;
+pessoa2.idade = <span class="num">35</span>;</code></pre>
+    <p>Os dois objetos pertencem à mesma classe, mas armazenam estados diferentes.</p>
+</div>
+</section>
+
+<section class="slide" data-title="Classe x Objeto">
+<div class="content">
+    <div class="eyebrow">7. Comparação</div>
+    <h2>Classe × Objeto</h2>
+    <table>
+        <thead><tr><th>Classe</th><th>Exemplo de objeto</th></tr></thead>
+        <tbody>
+            <tr><td>Carro</td><td>Um Toyota Corolla específico</td></tr>
+            <tr><td>Aluno</td><td>Uma aluna chamada Maria</td></tr>
+            <tr><td>Produto</td><td>Um notebook cadastrado no estoque</td></tr>
+            <tr><td>ContaBancaria</td><td>A conta de um determinado cliente</td></tr>
+        </tbody>
+    </table>
+    <div class="concept"><strong>Classe = modelo.</strong> <strong>Objeto = elemento criado a partir desse modelo.</strong></div>
+</div>
+</section>
+
+<section class="slide" data-title="Instanciação">
+<div class="content">
+    <div class="eyebrow">8. Criação de objetos</div>
+    <h2>Instanciação em Java</h2>
+<pre><code><span class="type">Pessoa</span> pessoa = <span class="kw">new</span> <span class="type">Pessoa</span>();</code></pre>
+    <div class="grid">
+        <div class="card"><h3> Pessoa </h3><p>Define o tipo da referência.</p></div>
+        <div class="card"><h3> pessoa </h3><p>Nome da variável que fará referência ao objeto.</p></div>
+        <div class="card"><h3> new </h3><p>Solicita a criação de uma nova instância.</p></div>
+        <div class="card"><h3> Pessoa() </h3><p>Representa a chamada ao construtor da classe.</p></div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Atributos">
+<div class="content">
+    <div class="eyebrow">9. Estado</div>
+    <h2>Atributos</h2>
+    <p>Os atributos armazenam as características e informações associadas a cada objeto.</p>
+<pre><code><span class="kw">public class</span> <span class="type">Carro</span> {
+
+    <span class="type">String</span> marca;
+    <span class="type">String</span> modelo;
+    <span class="type">String</span> cor;
+    <span class="type">int</span> ano;
+    <span class="type">double</span> velocidade;
+
+}</code></pre>
+    <p>Embora todos os objetos <code>Carro</code> tenham esses atributos, os valores armazenados podem ser diferentes em cada instância.</p>
+</div>
+</section>
+
+<section class="slide" data-title="Estado do objeto">
+<div class="content">
+    <div class="eyebrow">10. Dados em memória</div>
+    <h2>O estado de um objeto</h2>
+<pre><code><span class="type">Carro</span> carro = <span class="kw">new</span> <span class="type">Carro</span>();
+
+carro.marca = <span class="str">"Toyota"</span>;
+carro.modelo = <span class="str">"Corolla"</span>;
+carro.velocidade = <span class="num">0</span>;</code></pre>
+    <div class="concept">
+        <p>O conjunto dos valores atuais dos atributos forma o <strong>estado do objeto</strong>.</p>
+    </div>
+<pre><code>carro.velocidade = <span class="num">80</span>; <span class="comment">// o estado foi alterado</span></code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Métodos">
+<div class="content">
+    <div class="eyebrow">11. Comportamentos</div>
+    <h2>Métodos</h2>
+    <p>Se os atributos representam o que um objeto <strong>possui</strong>, os métodos representam aquilo que ele <strong>faz</strong>.</p>
+<pre><code><span class="kw">public class</span> <span class="type">Carro</span> {
+
+    <span class="type">double</span> velocidade;
+
+    <span class="type">void</span> <span class="fn">acelerar</span>() {
+        velocidade = velocidade + <span class="num">10</span>;
+    }
+
+}</code></pre>
+    <div class="concept"><p>O método <code>acelerar()</code> modifica o próprio estado do objeto.</p></div>
+</div>
+</section>
+
+<section class="slide" data-title="Chamando métodos">
+<div class="content">
+    <div class="eyebrow">12. Comunicação com objetos</div>
+    <h2>Chamando um método</h2>
+<pre><code><span class="type">Carro</span> carro = <span class="kw">new</span> <span class="type">Carro</span>();
+
+carro.<span class="fn">acelerar</span>();
+carro.<span class="fn">acelerar</span>();</code></pre>
+    <p>Se cada chamada aumentar a velocidade em 10 km/h, após duas chamadas o objeto possuirá velocidade igual a 20.</p>
+    <div class="concept">
+        <strong>Operador ponto:</strong>
+        <p><code>objeto.atributo</code> acessa um dado e <code>objeto.metodo()</code> solicita a execução de um comportamento.</p>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Classe Carro completa">
+<div class="content">
+    <div class="eyebrow">13. Exemplo completo</div>
+    <h2>Classe Carro</h2>
+<pre><code><span class="kw">public class</span> <span class="type">Carro</span> {
+
+    <span class="type">String</span> marca;
+    <span class="type">String</span> modelo;
+    <span class="type">int</span> ano;
+    <span class="type">double</span> velocidade;
+
+    <span class="type">void</span> <span class="fn">acelerar</span>() {
+        velocidade = velocidade + <span class="num">10</span>;
+    }
+
+    <span class="type">void</span> <span class="fn">frear</span>() {
+        velocidade = velocidade - <span class="num">10</span>;
+    }
+
+    <span class="type">void</span> <span class="fn">mostrarDados</span>() {
+        System.out.println(<span class="str">"Marca: "</span> + marca);
+        System.out.println(<span class="str">"Modelo: "</span> + modelo);
+        System.out.println(<span class="str">"Ano: "</span> + ano);
+        System.out.println(<span class="str">"Velocidade: "</span> + velocidade);
+    }
+}</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Classe principal">
+<div class="content">
+    <div class="eyebrow">14. Execução</div>
+    <h2>Utilizando a classe no método main</h2>
+<pre><code><span class="kw">public class</span> <span class="type">Principal</span> {
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="type">String</span>[] args) {
+
+        <span class="type">Carro</span> carro = <span class="kw">new</span> <span class="type">Carro</span>();
+
+        carro.marca = <span class="str">"Toyota"</span>;
+        carro.modelo = <span class="str">"Corolla"</span>;
+        carro.ano = <span class="num">2025</span>;
+
+        carro.<span class="fn">mostrarDados</span>();
+        carro.<span class="fn">acelerar</span>();
+        carro.<span class="fn">acelerar</span>();
+        carro.<span class="fn">mostrarDados</span>();
+    }
+}</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Parâmetros">
+<div class="content">
+    <div class="eyebrow">15. Métodos mais flexíveis</div>
+    <h2>Métodos com parâmetros</h2>
+    <p>Um método pode receber informações no momento em que é executado.</p>
+<pre><code><span class="type">void</span> <span class="fn">acelerar</span>(<span class="type">double</span> valor) {
+    velocidade = velocidade + valor;
+}</code></pre>
+<pre><code>carro.<span class="fn">acelerar</span>(<span class="num">20</span>);
+carro.<span class="fn">acelerar</span>(<span class="num">50</span>);</code></pre>
+    <p>O parâmetro <code>valor</code> permite reutilizar o mesmo método para diferentes quantidades.</p>
+</div>
+</section>
+
+<section class="slide" data-title="Retorno">
+<div class="content">
+    <div class="eyebrow">16. Resultados</div>
+    <h2>Métodos com retorno</h2>
+<pre><code><span class="type">double</span> <span class="fn">obterVelocidade</span>() {
+    <span class="kw">return</span> velocidade;
+}</code></pre>
+    <p>O tipo <code>double</code> antes do nome do método indica que um valor desse tipo será devolvido.</p>
+<pre><code><span class="type">double</span> velocidadeAtual = carro.<span class="fn">obterVelocidade</span>();
+
+System.out.println(velocidadeAtual);</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Exemplo Aluno">
+<div class="content">
+    <div class="eyebrow">17. Aplicação</div>
+    <h2>Exemplo: classe Aluno</h2>
+<pre><code><span class="kw">public class</span> <span class="type">Aluno</span> {
+
+    <span class="type">String</span> nome;
+    <span class="type">double</span> nota1;
+    <span class="type">double</span> nota2;
+
+    <span class="type">double</span> <span class="fn">calcularMedia</span>() {
+        <span class="kw">return</span> (nota1 + nota2) / <span class="num">2</span>;
+    }
+}</code></pre>
+<pre><code><span class="type">Aluno</span> aluno = <span class="kw">new</span> <span class="type">Aluno</span>();
+
+aluno.nome = <span class="str">"Maria"</span>;
+aluno.nota1 = <span class="num">8.0</span>;
+aluno.nota2 = <span class="num">7.0</span>;
+
+System.out.println(aluno.<span class="fn">calcularMedia</span>());</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Construtores">
+<div class="content">
+    <div class="eyebrow">18. Inicialização</div>
+    <h2>Construtores</h2>
+    <p>O construtor é executado no momento da criação do objeto e pode ser utilizado para garantir que a instância já seja criada com informações necessárias.</p>
+<pre><code><span class="kw">public class</span> <span class="type">Aluno</span> {
+
+    <span class="type">String</span> nome;
+    <span class="type">int</span> idade;
+
+    <span class="kw">public</span> <span class="fn">Aluno</span>(<span class="type">String</span> nome, <span class="type">int</span> idade) {
+        <span class="kw">this</span>.nome = nome;
+        <span class="kw">this</span>.idade = idade;
+    }
+}</code></pre>
+<pre><code><span class="type">Aluno</span> aluno = <span class="kw">new</span> <span class="type">Aluno</span>(<span class="str">"Carlos"</span>, <span class="num">20</span>);</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="this">
+<div class="content">
+    <div class="eyebrow">19. Referência ao próprio objeto</div>
+    <h2>A palavra-chave <code>this</code></h2>
+<pre><code><span class="kw">public</span> <span class="fn">Aluno</span>(<span class="type">String</span> nome) {
+    <span class="kw">this</span>.nome = nome;
+}</code></pre>
+    <div class="grid">
+        <div class="card"><h3>this.nome</h3><p>Refere-se ao atributo <code>nome</code> pertencente ao objeto atual.</p></div>
+        <div class="card"><h3>nome</h3><p>Refere-se ao parâmetro recebido pelo construtor.</p></div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Produto">
+<div class="content">
+    <div class="eyebrow">20. Exemplo integrado</div>
+    <h2>Classe Produto</h2>
+<pre><code><span class="kw">public class</span> <span class="type">Produto</span> {
+
+    <span class="type">String</span> nome;
+    <span class="type">double</span> preco;
+    <span class="type">int</span> quantidade;
+
+    <span class="kw">public</span> <span class="fn">Produto</span>(<span class="type">String</span> nome, <span class="type">double</span> preco, <span class="type">int</span> quantidade) {
+        <span class="kw">this</span>.nome = nome;
+        <span class="kw">this</span>.preco = preco;
+        <span class="kw">this</span>.quantidade = quantidade;
+    }
+
+    <span class="type">double</span> <span class="fn">calcularValorEstoque</span>() {
+        <span class="kw">return</span> preco * quantidade;
+    }
+
+    <span class="type">void</span> <span class="fn">mostrarProduto</span>() {
+        System.out.println(<span class="str">"Produto: "</span> + nome);
+        System.out.println(<span class="str">"Preço: R$ "</span> + preco);
+        System.out.println(<span class="str">"Quantidade: "</span> + quantidade);
+    }
+}</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Diagrama de classe">
+<div class="content">
+    <div class="eyebrow">21. Representação visual</div>
+    <h2>Representação conceitual de uma classe</h2>
+    <div class="uml">
+        <div class="title">Produto</div>
+        <div>nome : String<br>preco : double<br>quantidade : int</div>
+        <div>mostrarProduto() : void<br>calcularValorEstoque() : double</div>
+    </div>
+    <p>Essa forma de representação será retomada posteriormente durante o estudo de <strong>UML e diagramas de classes</strong>.</p>
+</div>
+</section>
+
+<section class="slide" data-title="Encapsulamento">
+<div class="content">
+    <div class="eyebrow">22. Proteção dos dados</div>
+    <h2>Introdução ao encapsulamento</h2>
+    <p>Até aqui os atributos foram acessados diretamente. Em aplicações orientadas a objetos, é comum restringir esse acesso utilizando <code>private</code>.</p>
+<pre><code><span class="kw">public class</span> <span class="type">Produto</span> {
+
+    <span class="kw">private</span> <span class="type">String</span> nome;
+    <span class="kw">private</span> <span class="type">double</span> preco;
+
+}</code></pre>
+    <div class="concept">
+        <p><strong>Encapsulamento</strong> permite que a própria classe controle como seus dados podem ser consultados ou modificados.</p>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Getters e Setters">
+<div class="content">
+    <div class="eyebrow">23. Acesso controlado</div>
+    <h2>Getters e Setters</h2>
+<pre><code><span class="kw">public class</span> <span class="type">Produto</span> {
+
+    <span class="kw">private</span> <span class="type">String</span> nome;
+
+    <span class="kw">public void</span> <span class="fn">setNome</span>(<span class="type">String</span> nome) {
+        <span class="kw">this</span>.nome = nome;
+    }
+
+    <span class="kw">public</span> <span class="type">String</span> <span class="fn">getNome</span>() {
+        <span class="kw">return</span> nome;
+    }
+}</code></pre>
+<pre><code>produto.<span class="fn">setNome</span>(<span class="str">"Notebook"</span>);
+System.out.println(produto.<span class="fn">getNome</span>());</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Validação">
+<div class="content">
+    <div class="eyebrow">24. Regra de negócio</div>
+    <h2>Por que controlar o acesso?</h2>
+    <p>O acesso controlado permite impedir estados inválidos.</p>
+    <div class="warning concept">
+        <p>Um preço negativo, por exemplo, normalmente não representa um estado válido para um produto.</p>
+    </div>
+<pre><code><span class="kw">public void</span> <span class="fn">setPreco</span>(<span class="type">double</span> preco) {
+
+    <span class="kw">if</span> (preco &gt;= <span class="num">0</span>) {
+        <span class="kw">this</span>.preco = preco;
+    }
+}</code></pre>
+    <p>A classe passa a ser responsável por proteger a consistência dos próprios dados.</p>
+</div>
+</section>
+
+<section class="slide" data-title="Pilares da POO">
+<div class="content">
+    <div class="eyebrow">25. Visão geral</div>
+    <h2>Os quatro pilares da POO</h2>
+    <div class="grid">
+        <div class="card"><h3>Abstração</h3><p>Selecionar e representar somente as características relevantes para o problema.</p></div>
+        <div class="card"><h3>Encapsulamento</h3><p>Proteger dados e definir formas controladas de acesso ao estado interno.</p></div>
+        <div class="card"><h3>Herança</h3><p>Permitir que uma classe aproveite características e comportamentos definidos em outra.</p></div>
+        <div class="card"><h3>Polimorfismo</h3><p>Permitir diferentes comportamentos por meio de uma mesma estrutura de referência.</p></div>
+    </div>
+    <div class="concept"><p>Nesta aula, o foco principal permanece em classe, objeto, atributo, método, construtor e uma introdução ao encapsulamento.</p></div>
+</div>
+</section>
+
+<section class="slide" data-title="Exercício guiado">
+<div class="content">
+    <div class="eyebrow">26. Exercício guiado</div>
+    <h2>Conta Bancária</h2>
+    <div class="card exercise">
+        <p>Criar a classe <strong>ContaBancaria</strong> com os atributos <code>titular</code>, <code>numero</code> e <code>saldo</code>.</p>
+        <p>Implementar os métodos <code>depositar()</code>, <code>sacar()</code> e <code>mostrarSaldo()</code>.</p>
+    </div>
+<pre><code><span class="kw">public class</span> <span class="type">ContaBancaria</span> {
+
+    <span class="type">String</span> titular;
+    <span class="type">int</span> numero;
+    <span class="type">double</span> saldo;
+
+    <span class="type">void</span> <span class="fn">depositar</span>(<span class="type">double</span> valor) {
+        saldo += valor;
+    }
+
+    <span class="type">void</span> <span class="fn">sacar</span>(<span class="type">double</span> valor) {
+        saldo -= valor;
+    }
+
+    <span class="type">void</span> <span class="fn">mostrarSaldo</span>() {
+        System.out.println(<span class="str">"Saldo: R$ "</span> + saldo);
+    }
+}</code></pre>
+</div>
+</section>
+
+<section class="slide" data-title="Testando ContaBancaria">
+<div class="content">
+    <div class="eyebrow">27. Teste do objeto</div>
+    <h2>Instanciando e utilizando a conta</h2>
+<pre><code><span class="type">ContaBancaria</span> conta = <span class="kw">new</span> <span class="type">ContaBancaria</span>();
+
+conta.titular = <span class="str">"João"</span>;
+conta.numero = <span class="num">1234</span>;
+
+conta.<span class="fn">depositar</span>(<span class="num">1000</span>);
+conta.<span class="fn">sacar</span>(<span class="num">250</span>);
+conta.<span class="fn">mostrarSaldo</span>();</code></pre>
+    <div class="concept"><p>Resultado esperado: <strong>Saldo: R$ 750.0</strong></p></div>
+</div>
+</section>
+
+<section class="slide" data-title="Problema para discussão">
+<div class="content">
+    <div class="eyebrow">28. Pensamento orientado a objetos</div>
+    <h2>Existe um problema nesse saque?</h2>
+<pre><code><span class="type">void</span> <span class="fn">sacar</span>(<span class="type">double</span> valor) {
+    saldo -= valor;
+}</code></pre>
+    <p>O código permite sacar qualquer valor, mesmo quando o saldo é insuficiente.</p>
+<pre><code><span class="type">void</span> <span class="fn">sacar</span>(<span class="type">double</span> valor) {
+
+    <span class="kw">if</span> (valor &lt;= saldo) {
+        saldo -= valor;
+    } <span class="kw">else</span> {
+        System.out.println(<span class="str">"Saldo insuficiente."</span>);
+    }
+}</code></pre>
+    <div class="concept"><p>Um objeto não precisa apenas guardar dados. Ele também pode garantir as <strong>regras de negócio</strong> relacionadas a esses dados.</p></div>
+</div>
+</section>
+
+<section class="slide" data-title="Atividade prática">
+<div class="content">
+    <div class="eyebrow">29. Atividade prática</div>
+    <h2>Sistema de Cadastro de Livros</h2>
+    <div class="card exercise">
+        <h3>Proposta</h3>
+        <p>Desenvolver uma aplicação Java simples aplicando os conceitos apresentados nesta aula.</p>
+        <p><strong>Classe:</strong> <code>Livro</code></p>
+        <p><strong>Atributos:</strong> título, autor, ano e preço.</p>
+        <p><strong>Construtor:</strong> deverá receber os dados necessários para criar um livro.</p>
+        <p><strong>Métodos:</strong> <code>mostrarDados()</code> e <code>aplicarDesconto(double percentual)</code>.</p>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Requisitos da atividade">
+<div class="content">
+    <div class="eyebrow">30. Requisitos</div>
+    <h2>Como a atividade deverá funcionar</h2>
+<pre><code><span class="type">Livro</span> livro1 = <span class="kw">new</span> <span class="type">Livro</span>(
+    <span class="str">"Programação Java"</span>,
+    <span class="str">"João Silva"</span>,
+    <span class="num">2026</span>,
+    <span class="num">120</span>
+);
+
+livro1.<span class="fn">mostrarDados</span>();
+livro1.<span class="fn">aplicarDesconto</span>(<span class="num">10</span>);
+livro1.<span class="fn">mostrarDados</span>();</code></pre>
+    <ul>
+        <li>Criar pelo menos <strong>três objetos</strong> da classe <code>Livro</code>.</li>
+        <li>Utilizar valores diferentes em cada objeto.</li>
+        <li>Demonstrar a alteração do preço após a aplicação do desconto.</li>
+    </ul>
+</div>
+</section>
+
+<section class="slide" data-title="Desafio">
+<div class="content">
+    <div class="eyebrow">31. Desafio adicional</div>
+    <h2>Evolução da atividade</h2>
+    <div class="grid">
+        <div class="card"><h3>1. Encapsular</h3><p>Alterar todos os atributos para <code>private</code>.</p></div>
+        <div class="card"><h3>2. Criar acesso</h3><p>Adicionar getters e setters quando necessários.</p></div>
+        <div class="card"><h3>3. Validar</h3><p>Impedir que o preço seja definido com valor negativo.</p></div>
+        <div class="card"><h3>4. Testar</h3><p>Criar situações válidas e inválidas para verificar o comportamento da classe.</p></div>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Síntese">
+<div class="content">
+    <div class="eyebrow">32. Síntese da aula</div>
+    <h2>Da classe ao comportamento</h2>
+    <div class="flow">
+        <div class="node">CLASSE</div><div class="arrow">→</div>
+        <div class="node">OBJETOS</div><div class="arrow">→</div>
+        <div class="node">ESTADO</div><div class="arrow">+</div>
+        <div class="node">COMPORTAMENTO</div>
+    </div>
+    <div class="card">
+        <h3>Exemplo: Aluno</h3>
+        <p><strong>Atributos:</strong> nome, nota1 e nota2.</p>
+        <p><strong>Métodos:</strong> calcularMedia() e mostrarDados().</p>
+        <p>Diversos objetos podem ser criados a partir da mesma classe, cada um com seu próprio estado.</p>
+    </div>
+</div>
+</section>
+
+<section class="slide" data-title="Próximos conteúdos">
+<div class="content">
+    <div class="eyebrow">33. Continuidade</div>
+    <h2>Sequência de estudo</h2>
+    <div class="grid">
+        <div class="card"><span class="badge">Aula 02</span><h3>Encapsulamento</h3><p>Modificadores de acesso, getters, setters, validações e construtores.</p></div>
+        <div class="card"><span class="badge">Aula 03</span><h3>Relacionamentos</h3><p>Associação e comunicação entre objetos.</p></div>
+        <div class="card"><span class="badge">Aula 04</span><h3>Herança</h3><p>Generalização, especialização e reutilização.</p></div>
+        <div class="card"><span class="badge">Aula 05</span><h3>Polimorfismo</h3><p>Sobrescrita e diferentes implementações para uma mesma abstração.</p></div>
+    </div>
+    <p class="lead" style="margin-top:24px">Esses fundamentos serão utilizados posteriormente na construção de aplicações Java organizadas em camadas, incluindo padrões como MVC e DAO.</p>
+</div>
+</section>
+
+</main>
+
+<footer>
+    <div class="nav">
+        <button class="btn" onclick="prevSlide()">← Anterior</button>
+        <button class="btn" onclick="nextSlide()">Próximo →</button>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <div class="counter" id="counter">1 / 33</div>
+</footer>
+</div>
+
+<aside class="toc" id="toc">
+    <button class="btn" onclick="toggleToc()">← Fechar índice</button>
+    <h3>Conteúdo da aula</h3>
+    <div id="tocItems"></div>
+</aside>
+<div class="overlay" id="overlay" onclick="toggleToc()"></div>
+
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const progressBar = document.getElementById('progressBar');
+const counter = document.getElementById('counter');
+const toc = document.getElementById('toc');
+const overlay = document.getElementById('overlay');
+const tocItems = document.getElementById('tocItems');
+let current = 0;
+
+slides.forEach((slide, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = `${String(index + 1).padStart(2,'0')} — ${slide.dataset.title}`;
+    btn.onclick = () => { showSlide(index); toggleToc(false); };
+    tocItems.appendChild(btn);
+});
+
+function showSlide(index){
+    current = Math.max(0, Math.min(index, slides.length - 1));
+    slides.forEach((s,i) => s.classList.toggle('active', i === current));
+    const pct = ((current + 1) / slides.length) * 100;
+    progressBar.style.width = pct + '%';
+    counter.textContent = `${current + 1} / ${slides.length}`;
+    [...tocItems.children].forEach((b,i) => b.classList.toggle('current', i === current));
+    slides[current].scrollTop = 0;
+}
+
+function nextSlide(){ showSlide(current + 1); }
+function prevSlide(){ showSlide(current - 1); }
+
+function toggleToc(force){
+    const open = typeof force === 'boolean' ? force : !toc.classList.contains('open');
+    toc.classList.toggle('open', open);
+    overlay.classList.toggle('show', open);
+}
+
+document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){
+        if(!toc.classList.contains('open')) { e.preventDefault(); nextSlide(); }
+    }
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp'){
+        if(!toc.classList.contains('open')) { e.preventDefault(); prevSlide(); }
+    }
+    if(e.key === 'Home') showSlide(0);
+    if(e.key === 'End') showSlide(slides.length - 1);
+    if(e.key === 'Escape') toggleToc(false);
+});
+
+let touchStartX = null;
+document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive:true});
+document.addEventListener('touchend', e => {
+    if(touchStartX === null) return;
+    const delta = e.changedTouches[0].screenX - touchStartX;
+    if(Math.abs(delta) > 60){
+        if(delta < 0) nextSlide(); else prevSlide();
+    }
+    touchStartX = null;
+}, {passive:true});
+
+showSlide(0);
+</script>
+</body>
+</html>
