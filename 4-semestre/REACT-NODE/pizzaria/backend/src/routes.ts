@@ -7,6 +7,7 @@ const router = Router();
 
 // Define uma rota POST para o endpoint "/users"
 router.post("/users", (req: Request, res: Response) => {
+  
   // Envia uma resposta em formato JSON quando a rota for acessada
   res.json({ message: "FUNCIONANDO!" });
 });

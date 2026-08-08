@@ -1,10 +1,10 @@
 // Define uma classe responsável pela lógica de criação de usuário
 class CreateUserService {
-  // Método assincrono (permite usar o await futuramente
-  // como acesso ao banco)
+
+  // Método assincrono (permite usar o await futuramente como acesso ao banco)
   async execute() {
-    // Exibe uma mensagem no console para indicar que o
-    // serviço foi executado
+
+    // Exibe uma mensagem no console para indicar que o serviço foi executado
     console.log("EXECUTANDO SERVIÇO!");
 
     // Retorna uma mensagem simulando a criação de um usuário
@@ -12,6 +12,5 @@ class CreateUserService {
   }
 }
 
-// Exporta a claase para que possa ser usada
-// em outros arquivos (ex: controllers)
+// Exporta a claase para que possa ser usada em outros arquivos (ex: controllers)
 export { CreateUserService };
