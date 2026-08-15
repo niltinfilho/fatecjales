@@ -1,8 +1,21 @@
 public class Calculadora {
-    int number1;
-    int number2;
+    double number1;
+    double number2;
 
-    int somar() {
+    double somar() {
         return this.number1 + this.number2;
     }
+
+    double subtrair() {
+        return this.number1 - this.number2;
+    }
+
+    double multiplicar() {
+        return this.number1 * this.number2;
+    }
+
+    double dividir() {
+        return this.number1 / this.number2;
+    }
+
 }
