@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrando HTML e PHP</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <h1>Formulário 2</h1>
+  <form method="get" action="idade.php">
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome">
+
+    <label for="nasc">Ano de nascimento:</label>
+    <input type="number" name="nasc" id="nasc">
+
+    <fieldset>
+      <legend>Sexo:</legend>
+
+      <div class="radios">
+        <input type="radio" name="sexo" id="masc" value="masculino">
+        <label for="masc">Masculino</label>
+      </div>
+
+      <div class="radios">
+        <input type="radio" name="sexo" id="fem" value="feminino">
+        <label for="fem">Feminino</label>
+      </div>
+    </fieldset>
+    <input type="submit" value="Enviar">
+  </form>
+</body>
+
+</html>
