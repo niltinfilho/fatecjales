@@ -23,11 +23,17 @@
 
   if ($nota1 == NULL) {
     $camposVazios++;
-  } elseif ($nota2 == NULL) {
+  }
+
+  if ($nota2 == NULL) {
     $camposVazios++;
-  } elseif ($nota3 == NULL) {
+  }
+
+  if ($nota3 == NULL) {
     $camposVazios++;
-  } elseif ($nota4 == NULL) {
+  }
+
+  if ($nota4 == NULL) {
     $camposVazios++;
   }
 

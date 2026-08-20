@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrutura condicional switch</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <h1>Pagamento de compras</h1>
+  <form method="get" action="switch.php">
+    <label for="valor">Informe o valor total:</label>
+    <input type="number" name="valor" id="valor" required>
+
+    <fieldset>
+      <legend>Pagamento:</legend>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="operacao1" value="1">
+        <label for="operacao1">Pagamento à vista e desconto de 10%</label>
+      </div>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="operacao2" value="2">
+        <label for="operacao2">Pagamento em 30 dias e juros de 5%</label>
+      </div>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="operacao3" value="3">
+        <label for="operacao3">Pagamento em 60 dias e juros de 10%</label>
+      </div>
+    </fieldset>
+
+    <input type="submit" value="Calcular">
+  </form>
+</body>
+
+</html>

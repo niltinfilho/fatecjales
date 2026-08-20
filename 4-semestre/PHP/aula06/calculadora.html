@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrutura condicional switch</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <h1>Calculadora simples</h1>
+  <form method="get" action="calculadora.php">
+    <label for="valor1">Informe o primeiro valor:</label>
+    <input type="number" name="valor1" id="valor1">
+
+    <label for="valor2">Informe o segundo valor:</label>
+    <input type="number" name="valor2" id="valor2">
+
+    <fieldset>
+      <legend>Escolha a operação:</legend>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="adicao" value="adicao">
+        <label for="adicao">Adição</label>
+      </div>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="subtracao" value="subtracao">
+        <label for="subtracao">Subtração</label>
+      </div>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="multiplicacao" value="multiplicacao">
+        <label for="multiplicacao">Multiplicação</label>
+      </div>
+
+      <div class="radios">
+        <input type="radio" name="operacao" id="divisao" value="divisao">
+        <label for="divisao">Divisão</label>
+      </div>
+    </fieldset>
+
+    <input type="submit" value="Calcular">
+  </form>
+</body>
+
+</html>
