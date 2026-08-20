@@ -16,9 +16,14 @@
     $valor = $_GET["v" . $i];
     if ($valor == NULL) {
       echo "<p>Faltou informar o $i ° valor</p>";
+    } else {
+      echo "<p>$i ° valor: $valor</p>";
     }
+    $i++;
   }
   ?>
+  <br>
+  <a href="while_dinamico.php">Voltar para o formulário</a>
 </body>
 
 </html>

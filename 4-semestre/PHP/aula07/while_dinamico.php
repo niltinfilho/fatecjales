@@ -15,7 +15,7 @@
     <?php
     $contador = 1;
     while ($contador <= 5) {
-      echo "<p>$contador ° valor: <input type='number' name='v$contador'/> </p>";
+      echo "<p style='color: #000'>$contador ° valor: <input type='number' name='v$contador'/> </p>";
       $contador++;
     }
     ?>

@@ -4,42 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estrutura condicional switch</title>
+  <title>Formulário de contador</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-  <h1>Confirmação de pagamento</h1>
+  <h1>Formulário de contador</h1>
 
-  <?php
-  $valor = $_GET["valor"];
-  $operacao = $_GET["operacao"];
+  <form method="get" action="contador_mostra.php">
+    <label for="nInicial">Número inicial:</label>
+    <input type="number" name="nInicial" id="nInicial">
 
-  if ($valor == NULL || empty($operacao)) {
-    echo "<p>O formulário está incompleto! Volte e preencha-o.</p>";
-  } else {
-    echo "<p>O valor da compra é <strong>R\$" . number_format($valor, 2, ",") . "</strong></p><br>";
+    <label for="nFinal">Número final:</label>
+    <input type="number" name="nFinal" id="nFinal">
 
-    switch ($operacao) {
-      case 1:
-        $resultado = $valor - ($valor * 0.10);
-        echo "<p>O valor total com pagamento à vista e desconto de 10% é <strong>R\$" . number_format($resultado, 2, ",") . "</strong></p>";
-        break;
-      case 2:
-        $resultado = $valor + ($valor * 0.05);
-        echo "<p>O valor total com pagamento em 30 dias e juros de 5% é <strong>R\$" . number_format($resultado, 2, ",") . "</strong></p>";
-        break;
-      case 3:
-        $resultado = $valor + ($valor * 0.10);
-        echo "<p>O valor total com pagamento em 60 dias e juros de 10% é <strong>R\$" . number_format($resultado, 2, ",") . "</strong></p>";
-        break;
-      default:
-        echo "<p>Não foi selecionada uma forma de pagamento!</p>";
-    }
-  }
-  ?>
+    <label for="incDec">Incremento/Decremento</label>
+    <select name="incDec" id="incDec">
+      <option value="" selected disabled>Selecione uma opção</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
 
-  <a href="switch.html">Voltar para o formulário</a>
+    <input type="submit" value="Calcular">
+  </form>
+
 </body>
 
 </html>

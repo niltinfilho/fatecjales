@@ -9,37 +9,30 @@
 </head>
 
 <body>
-  <h1>Confirmação de pagamento</h1>
-
+  <h1>Resultado da contagem</h1>
   <?php
-  $valor = $_GET["valor"];
-  $operacao = $_GET["operacao"];
+  $nInicial = $_GET["nInicial"];
+  $nFinal = $_GET["nFinal"];
+  $incDec = $_GET["incDec"];
 
-  if ($valor == NULL || empty($operacao)) {
-    echo "<p>O formulário está incompleto! Volte e preencha-o.</p>";
+  if ($nInicial == NULL || $nFinal == NULL || empty($incDec)) {
+    echo "<p>Informações faltando! Volte e preencha o formulário corretamente.</p>";
   } else {
-    echo "<p>O valor da compra é <strong>R\$" . number_format($valor, 2, ",") . "</strong></p><br>";
-
-    switch ($operacao) {
-      case 1:
-        $resultado = $valor - ($valor * 0.10);
-        echo "<p>O valor total com pagamento à vista e desconto de 10% é <strong>R\$" . number_format($resultado, 2, ",") . "</strong></p>";
-        break;
-      case 2:
-        $resultado = $valor + ($valor * 0.05);
-        echo "<p>O valor total com pagamento em 30 dias e juros de 5% é <strong>R\$" . number_format($resultado, 2, ",") . "</strong></p>";
-        break;
-      case 3:
-        $resultado = $valor + ($valor * 0.10);
-        echo "<p>O valor total com pagamento em 60 dias e juros de 10% é <strong>R\$" . number_format($resultado, 2, ",") . "</strong></p>";
-        break;
-      default:
-        echo "<p>Não foi selecionada uma forma de pagamento!</p>";
+    if ($nInicial < $nFinal) {
+      while ($nInicial <= $nFinal) {
+        echo "<p>$nInicial</p>";
+        $nInicial += $incDec;
+      }
+    } else {
+      while ($nFinal <= $nInicial) {
+        echo "<p>$nInicial</p>";
+        $nInicial -= $incDec;
+      }
     }
   }
   ?>
-
-  <a href="switch.html">Voltar para o formulário</a>
+  <br>
+  <a href="contador.php">Voltar para o formulário</a>
 </body>
 
 </html>
