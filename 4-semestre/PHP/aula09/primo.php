@@ -11,16 +11,19 @@
 <body>
   <?php
   $num = $_GET["num"];
-  echo "<h1>Mostrando tabuada do número $num:</h1>";
-
-  $i = 1;
-  do {
-    echo "<p>$num x $i = " . $num * $i . "<br></p>";
-    $i++;
-  } while ($i <= 10);
+  $divisores = [];
+  echo "<h1>Analisando o número $num:</h1><br>";
+  for ($i = 1; $i <= $num; $i++) {
+    if ($num % $i == 0) {
+      $divisores[] = $i;
+    }
+  }
+  $totalDivisores = count($divisores);
   ?>
-  <br>
-  <a href="tabuada.php">Voltar para o formulário</a>
+  <p>Valores multiplos: <?= implode(' ', $divisores); ?></p>
+  <p>Total de multiplos: <?= $totalDivisores; ?></p>
+  <p>Resultado: <?= $num ?> <?= $totalDivisores == 2 ? "é PRIMO!" : "não é PRIMO!" ?></p>
+  <a href="primo.html">Voltar para o formulário</a>
 </body>
 
 </html>
