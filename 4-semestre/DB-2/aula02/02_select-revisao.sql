@@ -103,26 +103,100 @@ where nome_cliente like '%io%';
 -- 21
 select *
 from cliente
-where 
-	nome_cliente like 'A%'
-	or nome_cliente like 'B%'
-	or nome_cliente like 'C%'
-	or nome_cliente like 'D%'
-	or nome_cliente like 'E%'
-	or nome_cliente like 'F%'
-;
+where substring(nome_cliente, 1, 1) between 'A' and 'F';
+
+select *
+from cliente
+where substring(nome_cliente, 1, 1) between 'A' and 'F';
 
 -- 22
 select descricao_produto
 from produto
 where unidade != 'M' and unidade != 'Kg';
 
+-- 23
+select *
+from vendedor
+where faixa_comissao is null or faixa_comissao = '';
+
+-- 24
+select *
+from cliente
+where ie is not null;
+
+-- 25
+select *
+from cliente
+order by nome_cliente asc;
+
+-- 26
+select nome_vendedor,salario_fixo
+from vendedor
+order by nome_vendedor;
+
+-- 27
+select nome_cliente, endereco
+from cliente
+where uf = 'SP'
+order by codigo_cliente asc;
+
+-- 28
+select num_pedido
+from pedido
+where prazo_entrega = 20
+order by num_pedido desc;
+
+-- 29
+select faixa_comissao, nome_vendedor, codigo_vendedor
+from vendedor
+order by faixa_comissao, nome_vendedor;
+
+-- 30
+select uf, nome_cliente
+from cliente
+where substring(nome_cliente,1, 1) between 'P' and 'Z';
 	
+-- 31
+(select *
+from produto
+order by val_unit asc limit 1)
+union all
+(select *
+from produto
+order by val_unit desc limit 1);
 	
-	
-	
-	
-	
+-- 32
+select 
+	sum(salario_fixo) / count(codigo_vendedor) as media,
+	sum(salario_fixo) as soma
+from vendedor;
+
+-- 33
+select count(codigo_cliente) as quantidade_cliente
+from cliente
+where ie is not null;
+
+-- 34
+select 
+	(
+		select salario_fixo as maior_salario
+		from vendedor
+		where faixa_comissao = 'A'
+		order by salario_fixo desc limit 1
+	),
+	sum(salario_fixo) as soma_salario
+from vendedor
+where faixa_comissao = 'A';
+
+-- 35
+select sum(quantidade)
+from item_pedido
+where codigo_produto = 77;
+
+-- 36
+select count(val_unit)
+from produto
+where val_unit < 2;
 	
 	
 	
