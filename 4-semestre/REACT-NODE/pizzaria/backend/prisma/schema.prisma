@@ -4,10 +4,45 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client" // Define o tipo de client gerado
+  output   = "../src/generated/prisma" // Caminho onde o client será criado no projeto
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" // Define que o banco utilziado é o PostgreSQL
+}
+
+// Define um ENUM (valores fixos) para o tipo de usuário
+enum Role {
+  STAFF // Usuário comum
+  ADMIN // Usuário administrador
+}
+
+// Modelo de usuário (tabela "users" no banco)
+model User {
+  id        String   @id @default(uuid()) // ID único gerado automaticamente (UUID)
+  name      String // Nome do usuário
+  email     String   @unique // Email único
+  password  String // Senha do usuário
+  role      Role     @default(STAFF) // Papel de usuário (padrão)
+  createdAt DateTime @default(now()) // Data de criação do usuário
+  updatedAt DateTime @updatedAt // Atualiza automaticamente ao modificar o registro
+
+  @@map("users") // Nome da tabela no banco de dados
+}
+
+// Modelo de categorias de produtos
+model Category {
+  id        String   @id @default(uuid()) // ID único
+  name      String // Nome da categoria
+  createdAt DateTime @default(now()) // Data de criação do usuário
+  updatedAt DateTime @updatedAt // Atualiza automaticamente ao modificar o registro
+
+  @@map("categories") // Nome da tabela no banco de dados
+}
+
+
+// Modelo de produtos
+model Product {
+  // CONTINUAR DAQUI
 }
