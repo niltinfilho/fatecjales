@@ -9,17 +9,11 @@
 </head>
 
 <body>
-  <h1>Função com/sem parâmetros ou argumentos</h1>
+  <h1>Testando função com/sem parâmetros ou argumentos</h1>
   <?php
-  function texto()
-  {
-    echo "<p>Esta função mostra o texto sem argumento</p>";
-  }
-
-  function mostraValor($valor)
-  {
-    echo "<p>Esta função mostra o valor informado com argumento: $valor</p>";
-  }
+  include "08-funcoes.php";
+  texto();
+  mostraValor(5);
   ?>
 </body>
 

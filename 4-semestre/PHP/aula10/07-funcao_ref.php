@@ -4,26 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resposta da tabuada</title>
+  <title>Retorna parâmetro por referência</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
+  <h1>Função que retorna parâmetro por referência</h1>
   <?php
-  $num = $_GET["num"];
-  $divisores = [];
-  echo "<h1>Analisando o número $num:</h1><br>";
-  for ($i = 1; $i <= $num; $i++) {
-    if ($num % $i == 0) {
-      $divisores[] = $i;
-    }
+  function referencia(&$x)
+  {
+    $x += 2;
+    echo "<p>O valor de x é igual a $x</p>";
   }
-  $totalDivisores = count($divisores);
+  $a = 3;
+  referencia($a);
+  echo "<p>O valor de a é igual a $a</p>";
   ?>
-  <p>Valores multiplos: <?= implode(' ', $divisores); ?></p>
-  <p>Total de multiplos: <?= $totalDivisores; ?></p>
-  <p>Resultado: <?= $num ?> <?= $totalDivisores == 2 ? "é PRIMO!" : "não é PRIMO!" ?></p>
-  <a href="primo.html">Voltar para o formulário</a>
 </body>
 
 </html>
