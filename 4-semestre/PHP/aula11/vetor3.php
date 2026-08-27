@@ -10,7 +10,16 @@
 
 <body>
   <?php
+  $mix[] = 'José';
+  $mix[] = 7;
+  $mix[] = 12.5;
+  $mix[] = 'Maria';
 
+  echo "<h1>Mostrando com print_r</h1>";
+  print_r($mix);
+
+  echo "<h1>Mostrando com var_dump</h1>";
+  var_dump($mix);
   ?>
 </body>
 
