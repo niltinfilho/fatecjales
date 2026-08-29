@@ -1,7 +1,6 @@
 public class Ingresso {
 
     int numero;
-    String descricaoEvento;
     float valor;
 
     void calculaDesconto() {
