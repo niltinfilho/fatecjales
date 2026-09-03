@@ -9,9 +9,14 @@
 </head>
 
 <body>
-  <?php
-
-  ?>
+  <form action="exe01_mostra.php">
+    <?php
+    for ($i = 0; $i < 5; $i++) {
+      echo "<p style='color: #000'>Vetor [$i]: <input type='text' name='i$i'></p>";
+    }
+    ?>
+    <input type="submit">
+  </form>
 </body>
 
 </html>
