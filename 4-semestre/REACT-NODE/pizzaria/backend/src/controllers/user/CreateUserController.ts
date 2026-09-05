@@ -20,7 +20,11 @@ class CreateUserController {
     const createUserService = new CreateUserService();
 
     // Executa a lógica de criação de usuário e aguarda o retorno
-    const user = await createUserService.execute();
+    const user = await createUserService.execute({
+      name: name,
+      email: email,
+      password: password
+    });
 
     // Retorna a resposta em JSON para o cliente
     res.json({ message: user });

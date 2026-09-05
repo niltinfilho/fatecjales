@@ -126,8 +126,24 @@ create table itemvendas (
   where extract(year from datavalidade) = 2024
   and extract(month from datavalidade) between 4 and 7;
   
+  select ascii('a');
   
+  select ascii('A');
   
+  select 'Joao ' || 'Maria ' || 'Silva' as nomecompleto;
+  
+  select descproduto || ' vence em ' || datavalidade as vencimento from produto;
+  
+  select 
+  	descproduto, 
+  	length(descproduto) as numero_caracteres 
+  from produto
+  order by numero_caracteres;
+  
+  select 
+  	upper(descproduto) as maiusculas,
+  	lower(descproduto) as minusculas
+  from produto;
   
   
   
