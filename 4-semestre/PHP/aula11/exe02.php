@@ -9,9 +9,16 @@
 </head>
 
 <body>
-  <?php
-
-  ?>
+  <form action="exe02_mostra.php">
+    <?php
+    for ($i = 0; $i <= 1; $i++) {
+      for ($c = 0; $c <= 3; $c++) {
+        echo "<p style='color:#000'>Matriz [$i, $c]</p> <input type='text' name=m$i$c>";
+      }
+    }
+    ?>
+    <input type="submit" value="Enviar">
+  </form>
 </body>
 
 </html>

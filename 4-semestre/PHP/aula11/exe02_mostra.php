@@ -10,7 +10,21 @@
 
 <body>
   <?php
+  echo "<h2>Recebendo os dados e mostrando com echo</h2>";
+  for ($i = 0; $i <= 1; $i++) {
+    for ($c = 0; $c <= 3; $c++) {
+      $valores[$i][$c] = $_GET["m$i$c"];
+      echo "Matriz [$i] [$c] = " . $_GET["m$i$c"] . "<br><br>";
+    }
+  }
 
+  echo "<h2>Mostrando com foreach</h2>";
+  foreach ($valores as $chaveA => $linha) {
+    echo "--> Linha: $chaveA" . "<br>";
+    foreach ($linha as $chaveB => $coluna) {
+      echo "Coluna $chaveB: $coluna" . "<br>";
+    }
+  }
   ?>
 </body>
 
