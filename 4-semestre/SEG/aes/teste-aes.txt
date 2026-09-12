@@ -1,0 +1,44 @@
+http://192.168.100.252/cripto/aes/novo/teste-aes.txt
+
+
+Utilizando o algoritmo AES (foram feitos exemplos em sala de aula), cifre o conteudo abaixo e escolha a opcao correta.
+
+Conteúdo = Texto Cifrado...
+
+Chave(128 bits) = 6121bc7a5557057c
+
+Escolha uma:
+a. JjeLsJq0CFRkmu0Kz5wdflc0Ap1h1J6JEtPdxRyR7gc=
+b. yVKcEvHnpriyhnVX9Ic/R+dVPUxAUdaERYXnss1tEKM=
+c. mtcL9c618NIdJWnqdTW17fzrqMMfoi8H6EDHVznAn1s=
+d. 8ainhRznYSMNLxm67gHV6l4wFJHjug71o0EIQ0p/770=
+e. +Aza97Tk9DYkQFztKLmqGMDx5fGaSJeJnSAiUKtkgdI=
+
+
+Utilizando o algoritmo AES (foram feitos exemplos em na sala de aula), decifre o conteudo abaixo e escolha a opcao correta.
+
+Conteudo = r6CrYrpfPWyab5C0ZYG8QfKoAzF/w9DfdcN834YAr84=
+
+Chave(128 bits) = 9871babc39h8857e
+
+Escolha uma:
+a. Muito bem, ta feito...
+b. Correto, ta blza...
+c. Oh, estude mais irmao...
+d. Quase, voce nao prestou atencao nas aulas...
+e. Top, deu certo...
+
+
+Utilizando o algoritmo AES (foram feitos exemplos em na sala de aula), decifre o conteudo abaixo e escolha a opcao correta.
+
+Conteudo Cifrado = B1FkkNEJ1U63FrlvAngxy+Qugy/AGfSmFd8EiRbn0qk=
+
+Conteudo que foi cifrado = Correto, ta blza...
+
+Escolha uma:
+a. 54062b7e1b70b423
+b. 1fefc2c0e23b9ffc
+c. 63921de8b26cd36b
+d. dc5d521bee2df9d5
+e. 1231badc39h9857e
+
