@@ -25,6 +25,16 @@
       echo "Coluna $chaveB: $coluna" . "<br>";
     }
   }
+
+  echo "<h2>Mostrando com print_r</h2>";
+  echo "<pre>";
+  print_r($valores);
+  echo "</pre>";
+
+  echo "<h2>Mostrando com var_dump</h2>";
+  echo "<pre>";
+  var_dump($valores);
+  echo "</pre>";
   ?>
 </body>
 
