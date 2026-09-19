@@ -14,6 +14,10 @@ import { validateSchema } from "./middlewares/validateSchema";
 // Importa o schema que define as regras de validação para criação de um usuário
 import { authUserSchema, createUserSchema } from "./schemas/userSchema";
 
+import { isAuthenticated } from "./middlewares/isAuthenticated";
+
+import { DetailUserController } from "./controllers/user/DetailUserController";
+
 // Cria uma instância de roteador do Express
 const router = Router();
 
@@ -33,10 +37,16 @@ router.post("/session", // Endpoint da rota
   // Middleware que valida os dados enviados no body da requisição
   // Ele usa um schema (authUserSchema) para garantir que e-mail e senha estão corretos
   validateSchema(authUserSchema),
+
   // Controller responsável por processar a requisição
   // Aqui ele executa o método handle, que faz a autenticação do usuário
   new AuthUserController().handle
 );
+
+router.get("/me", // Endpoint para obter dados do usuário autenticado
+  isAuthenticated, // Middleware que verifica se o usuário está autenticado (token válido)
+  new DetailUserController().handle // Controller que busca e retorna os dados do usuário
+)
 
 // Exporta o router para ser utilizado em outros arquivos (ex: no app principal)
 export { router };
