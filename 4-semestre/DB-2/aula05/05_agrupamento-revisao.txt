@@ -244,11 +244,3 @@ where ip.quantidade > (
     from item_pedido
 );
 
-
-
-
-
-
-
-
-
