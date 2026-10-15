@@ -1,0 +1,19 @@
+1. O que é o Node.js e qual é sua função no projeto?
+R: O Node é um ambiente de execução JavaScript gratuito, de código aberto e multiplataforma, que permite aos desenvolvedores criar servidores, aplicativos web, ferramentas de linha de comando e scripts.
+No projeto, ele é responsável por executar o backend, permitindo criar a API, processar requisições e executar as regras da aplicação.
+
+2. Para que serve o Express em uma aplicação backend?
+R: O Express é um framework para NodeJS, criado para facilitar a criação de servidores e APIs. O Express ajuda a controlar as rotas, receber requisições HTTP e enviar respostas para o cliente.
+
+3. Qual é a função do Prisma na comunicação entre a aplicação e o banco de dados?
+R: O Prisma é um ORM, que são facilitadores na comunicação entre o código e o banco de dados.
+A função dele é justamente facilitar essa comunicação, permitindo realizar consultas e operações no banco de dados utilizando JavaScript/TypeScript, sem precisar da linguagem SQL.
+
+4. Para que serve o arquivo .env e que tipo de informação pode ser armazenada nele?
+R: O arquivo '.env' é utilizado para armazenar variáveis de ambiente, principalmente informações de configurações que não podem ser expostas.
+Qualquer tipo de informação pode ser salva em um arquivo '.env', mas geralmente são usados para armazenar informações confidenciais, ex: a URL de conexão com o banco de dados, a porta que está sendo usada na aplicação, 'secret keys' de aplicativos terceiros, etc.
+
+5. Qual é a diferença entre um Controller e um Service dentro do projeto?
+R: Um 'Controller' e um 'Service' são algumas das camadas de uma arquitetura de software conhecida como 'Arquitetura de Camadas', onde cada pasta representa uma "responsabilidade" no projeto.
+A camada Controller é responsável por receber as requisições HTTP e enviar a resposta ao cliente. De acordo com a 'Arquitetura de Camadas', o Controller não é responsável pela regra de negócio da aplicação, por isso essa camada chama um 'Service' para realizar o processamento.
+Já a camada Service é responsável justamente pela regra de negócio, realizando o processamento necessário e, se for preciso, acessando o banco de dados, e então devolve uma resposta para o Controller, que envia para o cliente.
