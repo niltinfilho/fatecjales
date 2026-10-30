@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ligação telefônica - Desafio 17</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="cartao">
+    <h1>Cobrança de ligação telefônica</h1>
+    <p class="subtitulo">Informe o horário da ligação e o valor do minuto.</p>
+
+    <form action="calcular.php" method="post">
+      <fieldset>
+        <legend>Horário inicial</legend>
+        <div class="linha">
+          <label>Hora <input type="number" name="horaInicial" min="0" max="23" required></label>
+          <label>Minuto <input type="number" name="minInicial" min="0" max="59" required></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Horário final</legend>
+        <div class="linha">
+          <label>Hora <input type="number" name="horaFinal" min="0" max="23" required></label>
+          <label>Minuto <input type="number" name="minFinal" min="0" max="59" required></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Valor normal do minuto</legend>
+        <label>R$ <input type="text" name="valor" inputmode="decimal" placeholder="0,50" required></label>
+      </fieldset>
+
+      <button type="submit">Calcular</button>
+    </form>
+  </main>
+</body>
+
+</html>
