@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aula 02 — POO com Java</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#10243d;--text:#eef6ff;--muted:#b8c7d9;--primary:#55c2ff;--accent:#7cf0c5;--warning:#ffd166;--border:rgba(255,255,255,.12)}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#050b14,#07111f 45%,#091525);color:var(--text);overflow:hidden}
+.app{height:100vh;display:grid;grid-template-rows:auto 1fr auto}header,footer{background:rgba(5,11,20,.96);border-color:var(--border);display:flex;align-items:center;gap:12px;padding:12px 18px}
+header{justify-content:space-between;border-bottom:1px solid var(--border)}footer{border-top:1px solid var(--border);display:grid;grid-template-columns:auto 1fr auto}
+.brand strong{display:block;color:var(--accent)}.brand span{font-size:.85rem;color:var(--muted)}.actions,.nav{display:flex;gap:8px}
+button{font:inherit}.btn{background:var(--panel);color:var(--text);border:1px solid var(--border);padding:9px 13px;border-radius:10px;cursor:pointer}.btn.primary{background:var(--primary);color:#03101b;font-weight:700}
+main{position:relative;overflow:hidden}.slide{display:none;position:absolute;inset:0;overflow:auto;padding:clamp(24px,4vw,54px)}.slide.active{display:block}
+.content{width:min(1160px,100%);min-height:100%;margin:auto;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:800;margin-bottom:10px}
+h1{font-size:clamp(2.3rem,5.5vw,5rem);line-height:1.05;margin:0 0 20px}h2{font-size:clamp(2rem,4vw,3.6rem);line-height:1.08;margin:0 0 22px}h3{color:var(--primary);margin-top:0}
+p,li{color:var(--muted);font-size:clamp(1rem,1.35vw,1.17rem);line-height:1.6}.lead{font-size:clamp(1.15rem,2vw,1.45rem);max-width:930px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:16px}.grid.three{grid-template-columns:repeat(3,1fr)}.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:linear-gradient(180deg,rgba(16,36,61,.95),rgba(11,27,47,.95));border:1px solid var(--border);border-radius:18px;padding:21px}.card b{color:var(--primary);font-size:1.2rem}
+pre{background:#02070d;border:1px solid #17314e;border-radius:14px;padding:17px;overflow:auto;color:#d9efff;font:500 .94rem/1.55 Consolas,monospace;white-space:pre}
+code{font-family:Consolas,monospace}.concept,.warning{padding:13px 17px;border-left:4px solid var(--accent);background:rgba(124,240,197,.07);border-radius:0 12px 12px 0;margin:16px 0}.warning{border-left-color:var(--warning);background:rgba(255,209,102,.08)}
+table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--border);padding:13px;text-align:left}th{background:#122d4a;color:var(--primary)}td{background:rgba(13,27,45,.86);color:var(--muted)}
+.exercise{background:linear-gradient(135deg,rgba(85,194,255,.12),rgba(124,240,197,.08))}
+.flow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}.flow .node{padding:15px 20px;background:var(--panel2);border:1px solid var(--border);border-radius:13px;font-weight:800}.flow span{color:var(--accent);font-size:1.7rem}
+.progress{height:7px;background:#122033;border-radius:999px;overflow:hidden}.progress div{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent))}
+.counter{color:var(--muted);min-width:72px;text-align:right}.toc{position:fixed;left:0;top:0;bottom:0;width:min(360px,88vw);background:#07111f;z-index:20;padding:18px;overflow:auto;transform:translateX(-105%);transition:.2s;border-right:1px solid var(--border)}.toc.open{transform:none}.toc button{display:block;width:100%;text-align:left;margin:4px 0}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:15}.overlay.show{display:block}
+@media(max-width:800px){.grid,.grid.three,.compare{grid-template-columns:1fr}.slide{padding:22px 17px}.brand span{display:none}}
+@media print{body{overflow:visible;background:#fff;color:#111}header,footer,.toc,.overlay{display:none!important}main{overflow:visible}.slide{display:block!important;position:relative;page-break-after:always;min-height:100vh;padding:16mm}.content{justify-content:flex-start;min-height:auto}h1,h2,h3,b,strong{color:#111!important}p,li,td{color:#222!important}.card,.concept,.warning{background:#fff!important;border-color:#bbb!important}pre{background:#f6f8fa!important;color:#111!important;white-space:pre-wrap}th{background:#eee!important;color:#111!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="brand"><strong>TÓPICOS ESPECIAIS EM SISTEMAS PARA INTERNET — JAVA</strong><span>Aula 02 — Encapsulamento, Construtores, Getters e Setters</span></div>
+<div class="actions"><button class="btn" onclick="toggleToc()">☰ Índice</button><button class="btn primary" onclick="window.print()">Gerar PDF</button></div>
+</header>
+<main><section class="slide active" data-title="Abertura">
+<div class="content"><div class="eyebrow">Programação Orientada a Objetos com Java</div><h2>Encapsulamento, Construtores, Getters e Setters</h2><p class="lead">Nesta aula serão aprofundados os mecanismos usados para proteger o estado dos objetos, controlar o acesso aos atributos e criar instâncias consistentes.</p>
+<div class="grid three">
+<div class="card"><b>Encapsulamento</b><p>Proteção e controle do estado interno.</p></div>
+<div class="card"><b>Construtores</b><p>Definição do estado inicial do objeto.</p></div>
+<div class="card"><b>Getters e Setters</b><p>Consulta, alteração e validação de dados.</p></div>
+</div></div></section><section class="slide" data-title="Retomada">
+<div class="content"><div class="eyebrow">1. Retomada</div><h2>O ponto de partida</h2><p>Na aula anterior foram estudados classe, objeto, atributo, método, instanciação e construtor.</p>
+<pre>public class Aluno {
+    String nome;
+    int idade;
+}
+
+Aluno aluno = new Aluno();
+aluno.nome = "Maria";
+aluno.idade = 20;</pre>
+<div class="warning"><p>O problema é que qualquer parte do sistema poderia executar <code>aluno.idade = -50;</code>.</p></div></div></section><section class="slide" data-title="Encapsulamento">
+<div class="content"><div class="eyebrow">2. Conceito principal</div><h2>O que é encapsulamento?</h2><p>Encapsulamento é o princípio que protege o estado interno de um objeto e controla como seus dados podem ser consultados ou modificados.</p>
+<div class="compare">
+<div class="card"><h3>Sem controle</h3><pre>public double preco;
+produto.preco = -1000;</pre></div>
+<div class="card"><h3>Com encapsulamento</h3><pre>private double preco;</pre><p>Outras classes deixam de alterar o atributo diretamente.</p></div>
+</div></div></section><section class="slide" data-title="Modificadores">
+<div class="content"><div class="eyebrow">3. Visibilidade</div><h2>Modificadores de acesso</h2><table><tr><th>Modificador</th><th>Acesso</th></tr>
+<tr><td><code>public</code></td><td>Qualquer classe com acesso ao objeto.</td></tr>
+<tr><td><code>private</code></td><td>Somente dentro da própria classe.</td></tr>
+<tr><td><code>protected</code></td><td>Classe, pacote e subclasses.</td></tr>
+<tr><td>sem modificador</td><td>Classes do mesmo pacote.</td></tr></table>
+<div class="concept"><p>Nesta aula o foco principal será <code>public</code> e <code>private</code>.</p></div></div></section><section class="slide" data-title="Atributos privados">
+<div class="content"><div class="eyebrow">4. Proteção de estado</div><h2>Atributos privados</h2><pre>public class Aluno {
+    private String nome;
+    private int idade;
+}</pre>
+<p>Depois dessa alteração, <code>aluno.nome = "Maria";</code> não será permitido fora da classe.</p>
+<div class="concept"><p>O acesso deverá ocorrer por meio de métodos públicos definidos pela própria classe.</p></div></div></section><section class="slide" data-title="Getter">
+<div class="content"><div class="eyebrow">5. Consulta</div><h2>Getter</h2><p>Getter é um método usado para consultar um atributo privado.</p>
+<pre>public String getNome() {
+    return nome;
+}</pre>
+<pre>System.out.println(aluno.getNome());</pre></div></section><section class="slide" data-title="Setter">
+<div class="content"><div class="eyebrow">6. Alteração</div><h2>Setter</h2><p>Setter é um método utilizado para alterar um atributo de maneira controlada.</p>
+<pre>public void setNome(String nome) {
+    this.nome = nome;
+}</pre>
+<pre>aluno.setNome("Maria");</pre></div></section><section class="slide" data-title="Getter e Setter">
+<div class="content"><div class="eyebrow">7. Acesso controlado</div><h2>Getter e Setter juntos</h2><pre>public class Aluno {
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+}</pre>
+<pre>aluno.setNome("Maria");
+System.out.println(aluno.getNome());</pre></div></section><section class="slide" data-title="Validação">
+<div class="content"><div class="eyebrow">8. Consistência</div><h2>Validação utilizando Setter</h2><pre>public void setIdade(int idade) {
+    if (idade >= 0) {
+        this.idade = idade;
+    } else {
+        System.out.println("Idade inválida.");
+    }
+}</pre>
+<div class="concept"><p>A classe passa a impedir que o objeto entre em um estado inválido.</p></div></div></section><section class="slide" data-title="Responsabilidade">
+<div class="content"><div class="eyebrow">9. Organização</div><h2>Quem deve validar?</h2><div class="compare">
+<div class="card"><h3>Regra fora da classe</h3><pre>if (idade >= 0) {
+    pessoa.idade = idade;
+}</pre><p>A regra pode ser esquecida ou duplicada.</p></div>
+<div class="card"><h3>Regra dentro da classe</h3><pre>pessoa.setIdade(idade);</pre><p>A própria classe centraliza a regra.</p></div>
+</div></div></section><section class="slide" data-title="Produto">
+<div class="content"><div class="eyebrow">10. Exemplo</div><h2>Classe Produto encapsulada</h2><pre>public class Produto {
+    private String nome;
+    private double preco;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        if (preco >= 0) {
+            this.preco = preco;
+        }
+    }
+}</pre></div></section><section class="slide" data-title="Uso do Produto">
+<div class="content"><div class="eyebrow">11. Utilização</div><h2>Manipulando Produto</h2><pre>Produto produto = new Produto();
+
+produto.setNome("Notebook");
+produto.setPreco(3500);
+
+System.out.println(produto.getNome());
+System.out.println(produto.getPreco());</pre>
+<div class="concept"><p>O código externo não precisa saber como os dados estão armazenados internamente.</p></div></div></section><section class="slide" data-title="Construtor">
+<div class="content"><div class="eyebrow">12. Inicialização</div><h2>O construtor</h2><p>O construtor é executado quando uma nova instância é criada.</p>
+<pre>Aluno aluno = new Aluno();</pre>
+<div class="concept"><p>O trecho <code>Aluno()</code> representa a chamada ao construtor.</p></div></div></section><section class="slide" data-title="Criando construtor">
+<div class="content"><div class="eyebrow">13. Construção explícita</div><h2>Criando um construtor</h2><pre>public class Aluno {
+    private String nome;
+    private int idade;
+
+    public Aluno(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+}</pre>
+<pre>Aluno aluno = new Aluno("Maria", 20);</pre></div></section><section class="slide" data-title="Por que construtores?">
+<div class="content"><div class="eyebrow">14. Estado inicial</div><h2>Por que utilizar construtores?</h2><div class="compare">
+<div class="card"><h3>Sem construtor parametrizado</h3><pre>Aluno aluno = new Aluno();
+aluno.setNome("Maria");
+aluno.setIdade(20);</pre></div>
+<div class="card"><h3>Com construtor</h3><pre>Aluno aluno =
+    new Aluno("Maria", 20);</pre></div>
+</div>
+<p>O construtor permite exigir dados essenciais no momento da criação.</p></div></section><section class="slide" data-title="Objeto incompleto">
+<div class="content"><div class="eyebrow">15. Consistência</div><h2>Evitando objetos incompletos</h2><p>Dependendo do sistema, um aluno sem nome, matrícula ou curso pode não representar um objeto válido.</p>
+<pre>Aluno aluno = new Aluno(
+    "Maria",
+    "2026001",
+    "Sistemas para Internet"
+);</pre>
+<div class="concept"><p>O construtor define quais informações são obrigatórias para a criação.</p></div></div></section><section class="slide" data-title="this">
+<div class="content"><div class="eyebrow">16. Referência ao objeto</div><h2>A palavra-chave this</h2><pre>public Aluno(String nome) {
+    this.nome = nome;
+}</pre>
+<div class="grid">
+<div class="card"><h3>this.nome</h3><p>Atributo do objeto atual.</p></div>
+<div class="card"><h3>nome</h3><p>Parâmetro recebido pelo construtor.</p></div>
+</div></div></section><section class="slide" data-title="Validação no construtor">
+<div class="content"><div class="eyebrow">17. Consistência</div><h2>Construtor com validação</h2><pre>public Produto(String nome, double preco) {
+    this.nome = nome;
+
+    if (preco >= 0) {
+        this.preco = preco;
+    }
+}</pre>
+<p>O construtor também pode impedir estados inválidos.</p></div></section><section class="slide" data-title="Reutilização">
+<div class="content"><div class="eyebrow">18. Evitando duplicação</div><h2>Reutilizando o Setter no construtor</h2><pre>public Produto(String nome, double preco) {
+    this.nome = nome;
+    setPreco(preco);
+}</pre>
+<div class="concept"><p>A mesma regra de validação é reutilizada durante a criação e nas alterações posteriores.</p></div></div></section><section class="slide" data-title="Construtor padrão">
+<div class="content"><div class="eyebrow">19. Comportamento do Java</div><h2>Construtor padrão</h2><p>Quando nenhum construtor é declarado, Java oferece automaticamente um construtor sem parâmetros.</p>
+<pre>public class Pessoa {
+    private String nome;
+}
+
+Pessoa pessoa = new Pessoa();</pre>
+<div class="warning"><p>Ao declarar um construtor parametrizado, o construtor vazio deixa de ser criado automaticamente.</p></div></div></section><section class="slide" data-title="Erro comum">
+<div class="content"><div class="eyebrow">20. Atenção</div><h2>Construtor parametrizado e construtor vazio</h2><pre>public Pessoa(String nome) {
+    this.nome = nome;
+}</pre>
+<p>Nesse caso, o código abaixo deixa de ser válido:</p>
+<pre>Pessoa pessoa = new Pessoa();</pre>
+<p>Será necessário usar o construtor existente ou declarar também um construtor sem parâmetros.</p></div></section><section class="slide" data-title="Sobrecarga">
+<div class="content"><div class="eyebrow">21. Diferentes formas de criar</div><h2>Sobrecarga de construtores</h2><pre>public Pessoa() { }
+
+public Pessoa(String nome) {
+    this.nome = nome;
+}
+
+public Pessoa(String nome, int idade) {
+    this.nome = nome;
+    this.idade = idade;
+}</pre>
+<p>A classe passa a oferecer várias formas válidas de criação.</p></div></section><section class="slide" data-title="Assinatura">
+<div class="content"><div class="eyebrow">22. Identificação</div><h2>Assinatura de métodos e construtores</h2><div class="grid">
+<div class="card"><h3>Pessoa()</h3><p>Sem parâmetros.</p></div>
+<div class="card"><h3>Pessoa(String nome)</h3><p>Um parâmetro.</p></div>
+<div class="card"><h3>Pessoa(String nome, int idade)</h3><p>Dois parâmetros.</p></div>
+<div class="card"><h3>Como o Java escolhe?</h3><p>Pelos argumentos informados na chamada.</p></div>
+</div></div></section><section class="slide" data-title="Sobrecarga métodos">
+<div class="content"><div class="eyebrow">23. Mesmo nome</div><h2>Sobrecarga de métodos</h2><pre>public class Calculadora {
+
+    public int somar(int a, int b) {
+        return a + b;
+    }
+
+    public double somar(double a, double b) {
+        return a + b;
+    }
+}</pre>
+<pre>calculadora.somar(10, 20);
+calculadora.somar(10.5, 20.8);</pre></div></section><section class="slide" data-title="Setter não obrigatório">
+<div class="content"><div class="eyebrow">24. Encapsulamento real</div><h2>Nem todo atributo precisa de Setter</h2><p>Considere o saldo de uma conta bancária.</p>
+<pre>private double saldo;
+
+public double getSaldo() {
+    return saldo;
+}</pre>
+<div class="concept"><p>É possível permitir a consulta sem permitir uma alteração direta por <code>setSaldo()</code>.</p></div></div></section><section class="slide" data-title="Saldo">
+<div class="content"><div class="eyebrow">25. Regras de domínio</div><h2>Controlando o saldo corretamente</h2><pre>public void depositar(double valor) {
+    if (valor > 0) {
+        saldo += valor;
+    }
+}
+
+public void sacar(double valor) {
+    if (valor > 0 && valor <= saldo) {
+        saldo -= valor;
+    }
+}</pre>
+<p>O saldo muda somente por operações coerentes com a conta.</p></div></section><section class="slide" data-title="Conta completa">
+<div class="content"><div class="eyebrow">26. Exemplo completo</div><h2>Classe ContaBancaria</h2><pre>public class ContaBancaria {
+    private String titular;
+    private int numero;
+    private double saldo;
+
+    public ContaBancaria(String titular, int numero) {
+        this.titular = titular;
+        this.numero = numero;
+        this.saldo = 0;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) saldo += valor;
+    }
+
+    public void sacar(double valor) {
+        if (valor > 0 && valor <= saldo) saldo -= valor;
+    }
+
+    public String getTitular() { return titular; }
+    public int getNumero() { return numero; }
+    public double getSaldo() { return saldo; }
+}</pre></div></section><section class="slide" data-title="Principal Conta">
+<div class="content"><div class="eyebrow">27. Execução</div><h2>Utilizando ContaBancaria</h2><pre>ContaBancaria conta =
+    new ContaBancaria("Maria", 1234);
+
+conta.depositar(1000);
+conta.sacar(200);
+
+System.out.println(conta.getTitular());
+System.out.println(conta.getSaldo());</pre>
+<div class="concept"><p>Saída esperada: <strong>Maria</strong> e <strong>800.0</strong>.</p></div></div></section><section class="slide" data-title="Encapsulamento real">
+<div class="content"><div class="eyebrow">28. Interpretação</div><h2>Encapsulamento não é apenas private</h2><div class="grid">
+<div class="card"><h3>Consulta</h3><p>Quais dados podem ser vistos?</p></div>
+<div class="card"><h3>Alteração</h3><p>Quais dados podem ser modificados?</p></div>
+<div class="card"><h3>Validação</h3><p>Quais valores são permitidos?</p></div>
+<div class="card"><h3>Comportamento</h3><p>Quais operações fazem sentido para o objeto?</p></div>
+</div></div></section><section class="slide" data-title="Mau exemplo">
+<div class="content"><div class="eyebrow">29. Projeto inadequado</div><h2>Encapsulamento superficial</h2><pre>public class Conta {
+    private double saldo;
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+}</pre>
+<div class="warning"><p>Ainda seria possível executar <code>conta.setSaldo(-100000);</code>.</p></div>
+<p>O uso de <code>private</code> precisa estar acompanhado de regras coerentes.</p></div></section><section class="slide" data-title="Funcionário">
+<div class="content"><div class="eyebrow">30. Exemplo prático</div><h2>Classe Funcionario</h2><pre>public class Funcionario {
+    private String nome;
+    private String cargo;
+    private double salario;
+
+    public Funcionario(
+        String nome,
+        String cargo,
+        double salario
+    ) {
+        this.nome = nome;
+        this.cargo = cargo;
+        setSalario(salario);
+    }
+}</pre></div></section><section class="slide" data-title="Funcionário regras">
+<div class="content"><div class="eyebrow">31. Validação</div><h2>Salário e aumento</h2><pre>public void setSalario(double salario) {
+    if (salario >= 0) {
+        this.salario = salario;
+    }
+}
+
+public double getSalario() {
+    return salario;
+}
+
+public void aumentarSalario(double percentual) {
+    if (percentual > 0) {
+        salario = salario +
+                  salario * percentual / 100;
+    }
+}</pre></div></section><section class="slide" data-title="Teste funcionário">
+<div class="content"><div class="eyebrow">32. Execução</div><h2>Testando Funcionario</h2><pre>Funcionario funcionario =
+    new Funcionario(
+        "Carlos",
+        "Desenvolvedor",
+        3000
+    );
+
+System.out.println(funcionario.getSalario());
+funcionario.aumentarSalario(10);
+System.out.println(funcionario.getSalario());</pre>
+<div class="concept"><p>Saída esperada: <strong>3000.0</strong> e depois <strong>3300.0</strong>.</p></div></div></section><section class="slide" data-title="Atividade Produto">
+<div class="content"><div class="eyebrow">33. Atividade guiada</div><h2>Classe Produto</h2><div class="card exercise">
+<p>Criar uma classe <code>Produto</code> com os atributos privados <strong>nome</strong>, <strong>preço</strong> e <strong>quantidade</strong>.</p>
+<p>Adicionar construtor, getters e setters adequados.</p>
+<p>Implementar <code>calcularValorEstoque()</code>, <code>adicionarEstoque()</code> e <code>removerEstoque()</code>.</p>
+</div></div></section><section class="slide" data-title="Regras Produto">
+<div class="content"><div class="eyebrow">34. Atividade guiada</div><h2>Regras do Produto</h2><ul>
+<li>O preço não poderá ser negativo.</li>
+<li>A quantidade não poderá ser negativa.</li>
+<li>Não poderá ser removida quantidade maior que o estoque.</li>
+<li>Somente valores positivos poderão ser adicionados.</li>
+</ul>
+<pre>Produto produto =
+    new Produto("Teclado", 150, 10);
+
+produto.adicionarEstoque(5);
+produto.removerEstoque(3);
+
+System.out.println(produto.getQuantidade());</pre>
+<div class="concept"><p>Resultado esperado: <strong>12</strong>.</p></div></div></section><section class="slide" data-title="Atividade Veículo">
+<div class="content"><div class="eyebrow">35. Atividade prática individual</div><h2>Sistema simples de Veículo</h2><div class="card exercise">
+<p>Criar a classe <code>Veiculo</code> com os atributos privados:</p>
+<p><strong>marca, modelo, ano e velocidade.</strong></p>
+<p>O construtor deverá receber marca, modelo e ano. A velocidade inicial deverá ser zero.</p>
+</div></div></section><section class="slide" data-title="Métodos Veículo">
+<div class="content"><div class="eyebrow">36. Comportamentos</div><h2>Métodos da classe Veiculo</h2><div class="grid">
+<div class="card"><h3>acelerar(double valor)</h3><p>Aceitar somente valores maiores que zero.</p></div>
+<div class="card"><h3>frear(double valor)</h3><p>Impedir velocidade abaixo de zero.</p></div>
+<div class="card"><h3>getVelocidade()</h3><p>Consultar a velocidade atual.</p></div>
+<div class="card"><h3>Getters</h3><p>Consultar marca, modelo e ano.</p></div>
+</div></div></section><section class="slide" data-title="Exemplo Veículo">
+<div class="content"><div class="eyebrow">37. Resultado esperado</div><h2>Utilizando Veiculo</h2><pre>Veiculo carro =
+    new Veiculo(
+        "Honda",
+        "Civic",
+        2024
+    );
+
+carro.acelerar(50);
+carro.frear(20);
+
+System.out.println(carro.getVelocidade());</pre>
+<div class="concept"><p>Resultado esperado: <strong>30.0</strong>.</p></div></div></section><section class="slide" data-title="Desafio">
+<div class="content"><div class="eyebrow">38. Desafio adicional</div><h2>Velocidade máxima</h2><pre>private double velocidadeMaxima;</pre>
+<p>Modificar <code>acelerar()</code> para impedir que o veículo ultrapasse esse limite.</p>
+<div class="warning"><p>Se a velocidade atual for 180 km/h, a máxima for 200 km/h e a aceleração solicitada for 50 km/h, o resultado deverá ser 200 km/h.</p></div></div></section><section class="slide" data-title="Erros comuns">
+<div class="content"><div class="eyebrow">39. Atenção</div><h2>Erros comuns</h2><div class="grid">
+<div class="card"><h3>Esquecer o this</h3><pre>nome = nome;</pre><p>O atributo não é alterado corretamente.</p></div>
+<div class="card"><h3>Acessar private diretamente</h3><pre>produto.preco = 100;</pre><p>Não será permitido fora da classe.</p></div>
+<div class="card"><h3>Setter para tudo</h3><p>Nem todo atributo deve ser alterável diretamente.</p></div>
+<div class="card"><h3>Duplicar validação</h3><p>Regras devem ser centralizadas e reaproveitadas.</p></div>
+</div></div></section><section class="slide" data-title="Resumo visual">
+<div class="content"><div class="eyebrow">40. Síntese</div><h2>Como o objeto deve se comportar?</h2><div class="flow">
+<div class="node">OBJETO</div><span>→</span>
+<div class="node">ATRIBUTOS PRIVADOS</div><span>→</span>
+<div class="node">MÉTODOS PÚBLICOS</div><span>→</span>
+<div class="node">REGRAS</div>
+</div>
+<p class="lead">O objeto deve controlar seu próprio estado e oferecer ao restante do sistema apenas as operações necessárias.</p></div></section><section class="slide" data-title="Comparação final">
+<div class="content"><div class="eyebrow">41. Comparação</div><h2>Sem encapsulamento × Com encapsulamento</h2><div class="compare">
+<div class="card"><h3>Sem encapsulamento</h3><pre>produto.preco = -500;</pre><p>Alteração direta e sem validação.</p></div>
+<div class="card"><h3>Com encapsulamento</h3><pre>produto.setPreco(-500);</pre><p>A própria classe pode rejeitar a operação.</p></div>
+</div></div></section><section class="slide" data-title="Síntese">
+<div class="content"><div class="eyebrow">42. Síntese da Aula 02</div><h2>Conteúdos consolidados</h2><div class="grid three">
+<div class="card"><h3>Encapsulamento</h3><p>Proteção e controle do estado.</p></div>
+<div class="card"><h3>public / private</h3><p>Controle de visibilidade.</p></div>
+<div class="card"><h3>Getters / Setters</h3><p>Acesso e validação.</p></div>
+<div class="card"><h3>Construtores</h3><p>Inicialização do objeto.</p></div>
+<div class="card"><h3>this</h3><p>Referência ao objeto atual.</p></div>
+<div class="card"><h3>Sobrecarga</h3><p>Mesmos nomes, parâmetros diferentes.</p></div>
+</div></div></section><section class="slide" data-title="Próxima aula">
+<div class="content"><div class="eyebrow">43. Continuidade</div><h2>Relacionamentos entre objetos</h2><p class="lead">Depois de compreender como uma classe controla seu estado, o próximo passo é estudar como diferentes objetos se relacionam.</p>
+<div class="grid">
+<div class="card"><h3>Associação</h3><p>Um objeto conhece ou utiliza outro.</p></div>
+<div class="card"><h3>Agregação</h3><p>Uma parte pode existir independentemente do todo.</p></div>
+<div class="card"><h3>Composição</h3><p>Uma relação forte entre objeto principal e suas partes.</p></div>
+<div class="card"><h3>Exemplos</h3><p>Aluno → Curso, Pedido → Cliente e Pedido → Produto.</p></div>
+</div></div></section></main>
+<footer>
+<div class="nav"><button class="btn" onclick="show(current-1)">← Anterior</button><button class="btn" onclick="show(current+1)">Próximo →</button></div>
+<div class="progress"><div id="bar"></div></div><div class="counter" id="count"></div>
+</footer>
+</div>
+<aside class="toc" id="toc"><button class="btn" onclick="toggleToc()">← Fechar índice</button><h3>Conteúdo da aula</h3><div id="tocItems"></div></aside>
+<div class="overlay" id="overlay" onclick="toggleToc()"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')],bar=document.getElementById('bar'),count=document.getElementById('count'),toc=document.getElementById('toc'),overlay=document.getElementById('overlay'),items=document.getElementById('tocItems');let current=0;
+slides.forEach((s,i)=>{let b=document.createElement('button');b.className='btn';b.textContent=String(i+1).padStart(2,'0')+' — '+s.dataset.title;b.onclick=()=>{show(i);toggleToc(false)};items.appendChild(b)})
+function show(i){current=Math.max(0,Math.min(i,slides.length-1));slides.forEach((s,n)=>s.classList.toggle('active',n===current));bar.style.width=((current+1)/slides.length*100)+'%';count.textContent=(current+1)+' / '+slides.length;slides[current].scrollTop=0}
+function toggleToc(force){const o=typeof force==='boolean'?force:!toc.classList.contains('open');toc.classList.toggle('open',o);overlay.classList.toggle('show',o)}
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key==='Escape')toggleToc(false)});show(0);
+</script>
+</body></html>
